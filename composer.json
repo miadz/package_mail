@@ -1,10 +1,10 @@
 {
-    "name": "foostart/package_mail",
+    "name": "source/package_mail",
     "description": "Create overview sample can intergrate other project",
     "authors": [
         {
-            "name": "fooStart",
-            "email": "foostart@gmail.com"
+            "name": "source",
+            "email": "nguyenanhhoanld@gmail.com"
         }
     ],
     "require": {
