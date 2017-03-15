@@ -60,6 +60,7 @@ Route::group(['middleware' => ['web']], function () {
             'as' => 'admin_mail.mail_prepare',
             'uses' => 'Foostart\Mail\Controllers\Admin\MailAdminController@mailPrepare'
         ]);
+        
         Route::post('admin/mail/send', [
             'as' => 'admin_mail.send',
             'uses' => 'Foostart\Mail\Controllers\Admin\MailAdminController@mailSend'
