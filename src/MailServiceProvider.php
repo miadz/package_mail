@@ -88,6 +88,11 @@ class MailServiceProvider extends ServiceProvider {
                     'url' => URL::route('admin_mail.edit'),
                     "icon" => '<i class="fa fa-users"></i>'
                 ],
+                //add
+                trans('mail::mail_admin.mail_sent') => [
+                    'url' => URL::route('admin_mail.mail_sent'),
+                    "icon" => '<i class="fa fa-users"></i>'
+                ],
             ]);
             //
         });

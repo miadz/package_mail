@@ -11,7 +11,7 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title bariol-thin">
-                        {!! !empty($mail->mail_id) ? '<i class="fa fa-pencil"></i>'.trans('mail::mail_admin.form_edit') : '<i class="fa fa-users"></i>'.trans('mail::mail_admin.form_add') !!}
+                        {!! !empty($mail_history->mail_history_id) ? '<i class="fa fa-pencil"></i>'.trans('mail::mail_admin.form_edit') : '<i class="fa fa-users"></i>'.trans('mail::mail_admin.form_add') !!}
                     </h3>
                 </div>
 
@@ -34,26 +34,25 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                     <div class="row">
                         <div class="col-md-12 col-xs-12">
                             <h4>{!! trans('mail::mail_admin.form_heading') !!}</h4>
-                            {!! Form::open([
-                                'route'=>['admin_mail.send'], 
-                                'files'=>true, 
-                                'method' => 'post'])  !!}
+                            {!! Form::open(['route'=>['admin_mail.send', 'id' => @$mail->mail_id],  'files'=>true, 'method' => 'post'])  !!}
 
 
                             <!-- mail NAME TEXT-->
-                            @include('mail::mail.elements.mail', ['name' => 'mail_name'])
+                            @include('mail::mail_history.elements.mail_compose', [
+                                'subject' => 'mail_history_subject',
+                                'content' => 'mail_history_content'])
                             <!-- /END mail NAME TEXT -->
-                            {!! Form::hidden('id',@$mail->mail_id) !!}
+                            {!! Form::hidden('id',@$mail_history->mail_history_id) !!}
 
                             <!-- DELETE BUTTON -->
-                            <a href="{!! URL::route('admin_mail',['id' => @$mail->id, '_token' => csrf_token()]) !!}"
+                            <a href="{!! URL::route('admin_mail.mail_sent',['id' => @$mail->id, '_token' => csrf_token()]) !!}"
                                class="btn btn-danger pull-right margin-left-5 delete">
                                 {!! trans('mail::mail_admin.cancel') !!}
                             </a>
                             <!-- DELETE BUTTON -->
 
                             <!-- SAVE BUTTON -->
-                            {!! Form::submit(trans('mail::mail_admin.send'), array("class"=>"btn btn-info pull-right")) !!}
+                            {!! Form::submit(trans('mail::mail_admin.send'), array("class"=>"btn btn-info pull-right ")) !!}
                             <!-- /SAVE BUTTON -->
 
                             {!! Form::close() !!}

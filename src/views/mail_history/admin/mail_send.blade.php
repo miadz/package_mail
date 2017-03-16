@@ -46,14 +46,14 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                             {!! Form::hidden('id',@$mail->mail_id) !!}
 
                             <!-- DELETE BUTTON -->
-                            <a href="{!! URL::route('admin_mail',['id' => @$mail->id, '_token' => csrf_token()]) !!}"
+                            <a href="{!! URL::route('admin_mail.mail_sent',['id' => @$mail->id, '_token' => csrf_token()]) !!}"
                                class="btn btn-danger pull-right margin-left-5 delete">
                                 {!! trans('mail::mail_admin.cancel') !!}
                             </a>
                             <!-- DELETE BUTTON -->
 
                             <!-- SAVE BUTTON -->
-                            {!! Form::submit(trans('mail::mail_admin.send'), array("class"=>"btn btn-info pull-right")) !!}
+                            {!! Form::submit('Send', array("class"=>"btn btn-info pull-right")) !!}
                             <!-- /SAVE BUTTON -->
 
                             {!! Form::close() !!}

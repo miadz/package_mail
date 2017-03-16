@@ -2,7 +2,7 @@
 <div class="row margin-bottom-12">
     <div class="col-md-12">
         <a href="{!! URL::route('admin_mail.compose') !!}" class="btn btn-info pull-right">
-            <i class="fa fa-plus"></i>{{trans('mail::mail_admin.mail_compose_button')}}
+            <i class="fa fa-paper-plane"></i>{{trans('mail::mail_admin.mail_compose_button')}}
         </a>
     </div>
 </div>
@@ -40,9 +40,7 @@
                 <!-- /END DELETE BUTTON -->
 
                 <!-- SEND MAIL BUTTON -->
-                @if(empty($mail->mail_confirm))
-                    <a href="{!! URL::route('admin_mail.mail_prepare',['id' =>  $mail->mail_id, '_token' => csrf_token()]) !!}" class="margin-left-5 delete"><i class="fa fa-paper-plane fa-2x"></i></a>
-                @endif
+                <a href="{!! URL::route('admin_mail.mail_prepare',['id' =>  $mail->mail_id, '_token' => csrf_token()]) !!}" class="margin-left-5 delete"><i class="fa fa-envelope-o fa-2x"></i></a>
                 <!-- /END SEND MAIL BUTTON -->
 
                 <span class="clearfix"></span>

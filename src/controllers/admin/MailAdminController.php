@@ -6,6 +6,7 @@ use URL;
 use Route,
     Redirect;
 use Foostart\Mail\Models\Mails;
+use Foostart\Mail\Models\MailsHistories;
 use Mail;
 use Illuminate\Support\Facades\Input;
 use Swift_Attachment;
@@ -19,10 +20,12 @@ class MailAdminController extends Controller {
     public $data_view = array();
 
     private $obj_mail = NULL;
+    private $obj_mail_history = NULL;
     private $obj_validator = NULL;
 
     public function __construct() {
         $this->obj_mail = new Mails();
+        $this->obj_mail_history = new MailsHistories();
     }
 
     /**
@@ -158,7 +161,9 @@ class MailAdminController extends Controller {
         return Redirect::route("admin_mail");
     }
 
-    // ====================================== MAIL ======================================
+    /*==================================================================================
+    ====================================== MAIL ======================================
+    ==================================================================================*/
     /**
      *
      * @return type
@@ -181,10 +186,11 @@ class MailAdminController extends Controller {
 
     public function mailSend(Request $request){
         $mail = NULL;
+        $mail_history = NULL;
+        $input = $request->all();
+
         $mail_id = (int) $request->get('id');
-        $mail_content = (string) $request->get('mail_content');
         $mail_address = (string) $request->get('mail_address');
-        $mail_subject = (string) $request->get('mail_subject');
         //$file = Input::file('fileToUpload');
 
         // var_dump($mail_address);
@@ -199,13 +205,12 @@ class MailAdminController extends Controller {
             if (!empty($mail_id) && (is_int($mail_id))) {
                 $mail = $this->obj_mail->find($mail_id);
             }
-
             $data = [
                 'confirm' => 'confirm',
                 'author' => 'ADMIN PACKAGE',
                 'address' => $mail->mail_name,
-                'subject' => $mail_subject,
-                'contents' => $mail_content
+                'subject' => $input['mail_subject'],
+                'contents' => $input['mail_content']
                 ];
             Mail::send(['view' => 'mail'], $data, function($message) use ($data){
                 $message->to($data['address'])
@@ -218,6 +223,13 @@ class MailAdminController extends Controller {
                 //$message->attach($file);
                 $message->from('rootpowercontrol@gmail.com', 'ADMIN');
             });
+
+            $request->request->add([
+                'mail_history_name' => $mail->mail_name,
+                'mail_history_subject' => $input['mail_subject'],
+                'mail_history_content' => $input['mail_content']]);
+            $input = $request->all();
+            $mail_history = $this->obj_mail_history->add_mail_history($input);
             
             //Message
             \Session::flash('message', trans('mail::mail_admin.message_send_mail_successfully'));
@@ -227,9 +239,9 @@ class MailAdminController extends Controller {
             $data = [
                 'confirm' => 'confirm',
                 'author' => 'ADMIN PACKAGE',
-                'address' => $mail_address,
-                'subject' => $mail_subject,
-                'contents' => $mail_content
+                'address' => $input['mail_address'],
+                'subject' => $input['mail_subject'],
+                'contents' => $input['mail_content']
                 ];
             Mail::send(['view' => 'mail'], $data, function($message) use ($data){
                 $message->to($data['address'])
@@ -238,6 +250,13 @@ class MailAdminController extends Controller {
                     ->setBody($data['contents']);
                 $message->from('rootpowercontrol@gmail.com', 'ADMIN');
             });
+
+            $request->request->add([
+                'mail_history_name' => $input['mail_address'],
+                'mail_history_subject' => $input['mail_subject'],
+                'mail_history_content' => $input['mail_content']]);
+            $input = $request->all();
+            $mail_history = $this->obj_mail_history->add_mail_history($input);
             
             //Message
             \Session::flash('message', trans('mail::mail_admin.message_send_mail_successfully'));
@@ -268,5 +287,8 @@ class MailAdminController extends Controller {
         ));
         return view('mail::mail.admin.mail_compose', $this->data_view);
     }
-    // ====================================== /END MAIL ======================================
+
+    /*===============================================================================
+    ================================== /END MAIL ==================================
+    ===============================================================================*/
 }

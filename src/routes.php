@@ -70,5 +70,23 @@ Route::group(['middleware' => ['web']], function () {
             'as' => 'admin_mail.compose',
             'uses' => 'Foostart\Mail\Controllers\Admin\MailAdminController@mailCompose'
         ]);
+
+        /**
+         * mail history
+         */
+        Route::get('admin/mail/mail_sent', [
+            'as' => 'admin_mail.mail_sent',
+            'uses' => 'Foostart\Mail\Controllers\Admin\MailHistoryAdminController@index'
+        ]);
+
+        Route::get('admin/mail/mail_forward', [
+            'as' => 'admin_mail.mail_forward',
+            'uses' => 'Foostart\Mail\Controllers\Admin\MailHistoryAdminController@mailForward'
+        ]);
+
+        Route::get('admin/mail/mail_history_delete', [
+            'as' => 'admin_mail.mail_history_delete',
+            'uses' => 'Foostart\Mail\Controllers\Admin\MailHistoryAdminController@delete'
+        ]);
     });
 });

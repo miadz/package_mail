@@ -14,7 +14,8 @@ return [
      */
 
     'page_list' => 'List of mails',
-    'page_add' => 'Add new item',
+    'page_add' => 'Add new mail',
+    'mail_sent' => 'Sent mail',
     'page_edit' => 'Update mail item',
     'page_search' => 'Mail page search',
     'page_category'=> 'List categories of mail',
@@ -50,6 +51,8 @@ return [
      * Button
      */
     'mail_compose_button' => 'Compose',
+    'send' => 'Send',
+    'cancel' => 'Cancel',
 
     /**
      * Validator message
