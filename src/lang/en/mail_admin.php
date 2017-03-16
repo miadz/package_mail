@@ -33,6 +33,9 @@ return [
     'mail_name_label' => 'Mail name:',
     'mail_name_placeholder' => 'Mail name',
     'mail_category_name'=> 'mail category name',
+    'mail_subject' => 'Subject',
+    'mail_content' => 'Content',
+    'mail_attach_file' => 'Attach file',
 
     /**
      * Message
@@ -46,7 +49,7 @@ return [
     /**
      * Button
      */
-    'mail_add_button' => 'Add new mail',
+    'mail_compose_button' => 'Compose',
 
     /**
      * Validator message

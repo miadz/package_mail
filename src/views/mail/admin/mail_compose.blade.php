@@ -39,9 +39,8 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                                 'files'=>true, 
                                 'method' => 'post'])  !!}
 
-
                             <!-- mail NAME TEXT-->
-                            @include('mail::mail.elements.mail', ['name' => 'mail_name'])
+                            @include('mail::mail.elements.mail_compose', ['name' => 'mail_name'])
                             <!-- /END mail NAME TEXT -->
                             {!! Form::hidden('id',@$mail->mail_id) !!}
 

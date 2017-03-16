@@ -7,7 +7,8 @@ use Route,
     Redirect;
 use Foostart\Mail\Models\Mails;
 use Mail;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Input;
+use Swift_Attachment;
 /**
  * Validators
  */
@@ -157,6 +158,11 @@ class MailAdminController extends Controller {
         return Redirect::route("admin_mail");
     }
 
+    // ====================================== MAIL ======================================
+    /**
+     *
+     * @return type
+     */
     public function mailPrepare(Request $request){
         $mail = NULL;
         $mail_id = (int) $request->get('id');
@@ -177,30 +183,87 @@ class MailAdminController extends Controller {
         $mail = NULL;
         $mail_id = (int) $request->get('id');
         $mail_content = (string) $request->get('mail_content');
+        $mail_address = (string) $request->get('mail_address');
+        $mail_subject = (string) $request->get('mail_subject');
+        //$file = Input::file('fileToUpload');
 
-        if (!empty($mail_id) && (is_int($mail_id))) {
-            $mail = $this->obj_mail->find($mail_id);
+        // var_dump($mail_address);
+        // var_dump($mail_subject);
+        // var_dump($mail_content);
+        // if($file != null){
+        //     $this->attachFile($file);
+        // }
+        //die();
+
+        if($mail_address == null){
+            if (!empty($mail_id) && (is_int($mail_id))) {
+                $mail = $this->obj_mail->find($mail_id);
+            }
+
+            $data = [
+                'confirm' => 'confirm',
+                'author' => 'ADMIN PACKAGE',
+                'address' => $mail->mail_name,
+                'contents' => $mail_content
+                ];
+            Mail::send(['view' => 'mail'], $data, function($message) use ($data){
+                $message->to($data['address'])->cc($data['address'])
+                    ->subject('Mail sent from '.$data['author'].'.')
+                    ->setBody($data['contents']);
+                // $message->attach($file['fileToUpload']->getRealPath(), array(
+                //     'as' => $file['fileToUpload']->getClientOriginalName(), 
+                //     'mime' => $file['fileToUpload']->getMimeType()));
+                //$message->attach($file);
+                $message->from('rootpowercontrol@gmail.com', 'ADMIN');
+            });
+            
+            //Message
+            \Session::flash('message', trans('mail::mail_admin.message_send_mail_successfully'));
+            return Redirect::route("admin_mail");
         }
-
-        $data = [
-            'confirm' => 'confirm',
-            'author' => 'ADMIN PACKAGE',
-            'address' => $mail->mail_name,
-            'contents' => $mail_content
-            ];
-        Mail::send(['view' => 'mail'], $data, function($message) use ($data){
-            $message->to($data['address'])->cc($data['address'])
-                ->subject('Mail sent from '.$data['author'].'.')
-                ->setBody($data['contents']);
-            $message->from('rootpowercontrol@gmail.com');
-        });
-        
-        //Message
-        \Session::flash('message', trans('mail::mail_admin.message_send_mail_successfully'));
-        return Redirect::route("admin_mail");
+        else {
+            $data = [
+                'confirm' => 'confirm',
+                'author' => 'ADMIN PACKAGE',
+                'address' => $mail_address,
+                'subject' => $mail_subject,
+                'contents' => $mail_content
+                ];
+            Mail::send(['view' => 'mail'], $data, function($message) use ($data){
+                $message->to($data['address'])->cc($data['address'])
+                    ->subject($data['subject'])
+                    ->setBody($data['contents']);
+                $message->from('rootpowercontrol@gmail.com', 'ADMIN');
+            });
+            
+            //Message
+            \Session::flash('message', trans('mail::mail_admin.message_send_mail_successfully'));
+            return Redirect::route("admin_mail");
+        }
     }
-    public function merge(array $input)
+    public function attachFile($file)
     {
-        $this->getInputSource()->add($input);
+        if ($file != null && $file->isValid()){
+            var_dump('SS');
+
+            $location_file = public_path();
+            $file_name = null;
+            $destinationPath = 'upload/';
+
+            //$extension = Input::file($file)->getClientOriginalExtension();
+            $file_name = rand(11,99);//.'.'.$extension;
+            Input::file($file)->move($destinationPath, $fileName);
+            
+            $location_file += $destinationPath.$file_name;
+
+            var_dump($location_file);
+        }
     }
+    public function mailCompose(Request $request){
+        $this->data_view = array_merge($this->data_view, array(
+            'request' => $request
+        ));
+        return view('mail::mail.admin.mail_compose', $this->data_view);
+    }
+    // ====================================== /END MAIL ======================================
 }

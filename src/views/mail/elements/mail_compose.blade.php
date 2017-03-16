@@ -1,16 +1,18 @@
 <!-- MAIL -->
 <div class="form-group">
-    <?php $mail_name = $request->get('mail_titlename') ? $request->get('mail_name') : @$mail->mail_name ?>
+    <!-- MAIL ADDRESS -->
+    {!! Form::label(trans('mail::mail_admin.mail_name').':') !!}
+    {!! Form::text('mail_address', null, [
+        'class' => 'form-control', 
+        'placeholder' => trans('mail::mail_admin.mail_name').'', 
+        'autofocus']) !!}
+    <!-- /END MAIL ADDRESS -->
 
-    {!! Form::label('Mail to: ') !!}
-    {!! Form::label($name, $mail_name, trans('mail::mail_admin.name').':') !!}
-    <br>
     <!-- SUBJECT -->
     {!! Form::label(trans('mail::mail_admin.mail_subject').':') !!}
-    {!! Form::text('subject', null, [
+    {!! Form::text('mail_subject', null, [
         'class' => 'form-control', 
-        'placeholder' => trans('mail::mail_admin.mail_subject').'', 
-        'autofocus']) !!}
+        'placeholder' => trans('mail::mail_admin.mail_subject').'']) !!}
     <!-- /END SUBJECT -->
 
     <!-- CONTENT -->
