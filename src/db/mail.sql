@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2017 at 12:47 AM
+-- Generation Time: Mar 16, 2017 at 04:04 PM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `dev_laravel_v53`
 --
-CREATE DATABASE IF NOT EXISTS `dev_laravel_v53` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `dev_laravel_v53`;
 
 -- --------------------------------------------------------
 
@@ -40,10 +38,35 @@ CREATE TABLE `mails` (
 
 INSERT INTO `mails` (`mail_id`, `mail_name`) VALUES
 (4, 'grimreaperld@gmail.com'),
-(7, 'test@gmail.com'),
+(9, 'sontung.buinguyen@gmail.com'),
 (5, 'maily27196@gmail.com'),
 (6, 'kinokonguyen0196@outlook.com'),
-(8, 'ptnhuan@gmail.com');
+(8, 'ptnhuan@gmail.com'),
+(11, 'nguyenanhhoanld@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mails_histories`
+--
+
+DROP TABLE IF EXISTS `mails_histories`;
+CREATE TABLE `mails_histories` (
+  `mail_history_id` int(11) NOT NULL,
+  `mail_history_name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `mail_history_subject` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `mail_history_content` varchar(255) CHARACTER SET utf8 NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `mails_histories`
+--
+
+INSERT INTO `mails_histories` (`mail_history_id`, `mail_history_name`, `mail_history_subject`, `mail_history_content`) VALUES
+(6, 'grimreaperld@gmail.com', 'Test03', 'Check03'),
+(7, 'grimreaperld@gmail.com', 'Guitar song', 'Source: (Alan Walker) Faded - Fingerstyle Guitar Cover (with TABS)\r\nName: https://www.youtube.com/watch?v=44FPny8k4DM'),
+(4, 'grimreaperld@gmail.com', 'Test01', 'Check01'),
+(8, 'grimreaperld@gmail.com', 'Test04', 'Check04');
 
 --
 -- Indexes for dumped tables
@@ -57,6 +80,12 @@ ALTER TABLE `mails`
   ADD UNIQUE KEY `mail_name` (`mail_name`);
 
 --
+-- Indexes for table `mails_histories`
+--
+ALTER TABLE `mails_histories`
+  ADD PRIMARY KEY (`mail_history_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -64,7 +93,12 @@ ALTER TABLE `mails`
 -- AUTO_INCREMENT for table `mails`
 --
 ALTER TABLE `mails`
-  MODIFY `mail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `mail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `mails_histories`
+--
+ALTER TABLE `mails_histories`
+  MODIFY `mail_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
