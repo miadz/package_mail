@@ -204,11 +204,13 @@ class MailAdminController extends Controller {
                 'confirm' => 'confirm',
                 'author' => 'ADMIN PACKAGE',
                 'address' => $mail->mail_name,
+                'subject' => $mail_subject,
                 'contents' => $mail_content
                 ];
             Mail::send(['view' => 'mail'], $data, function($message) use ($data){
-                $message->to($data['address'])->cc($data['address'])
-                    ->subject('Mail sent from '.$data['author'].'.')
+                $message->to($data['address'])
+                    ->cc($data['address'])
+                    ->subject($data['subject'])
                     ->setBody($data['contents']);
                 // $message->attach($file['fileToUpload']->getRealPath(), array(
                 //     'as' => $file['fileToUpload']->getClientOriginalName(), 
@@ -230,7 +232,8 @@ class MailAdminController extends Controller {
                 'contents' => $mail_content
                 ];
             Mail::send(['view' => 'mail'], $data, function($message) use ($data){
-                $message->to($data['address'])->cc($data['address'])
+                $message->to($data['address'])
+                    ->cc($data['address'])
                     ->subject($data['subject'])
                     ->setBody($data['contents']);
                 $message->from('rootpowercontrol@gmail.com', 'ADMIN');

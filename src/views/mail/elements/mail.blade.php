@@ -7,7 +7,7 @@
     <br>
     <!-- SUBJECT -->
     {!! Form::label(trans('mail::mail_admin.mail_subject').':') !!}
-    {!! Form::text('subject', null, [
+    {!! Form::text('mail_subject', null, [
         'class' => 'form-control', 
         'placeholder' => trans('mail::mail_admin.mail_subject').'', 
         'autofocus']) !!}
