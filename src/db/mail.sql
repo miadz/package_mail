@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2017 at 04:04 PM
+-- Generation Time: Mar 17, 2017 at 07:23 AM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -42,7 +42,31 @@ INSERT INTO `mails` (`mail_id`, `mail_name`) VALUES
 (5, 'maily27196@gmail.com'),
 (6, 'kinokonguyen0196@outlook.com'),
 (8, 'ptnhuan@gmail.com'),
-(11, 'nguyenanhhoanld@gmail.com');
+(11, 'nguyenanhhoanld@gmail.com'),
+(12, 'bibiambibiam@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mails_contacts`
+--
+
+DROP TABLE IF EXISTS `mails_contacts`;
+CREATE TABLE `mails_contacts` (
+  `mail_contact_id` int(11) NOT NULL,
+  `mail_contact_name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `mail_contact_subject` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `mail_contact_content` varchar(255) CHARACTER SET utf8 NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `mails_contacts`
+--
+
+INSERT INTO `mails_contacts` (`mail_contact_id`, `mail_contact_name`, `mail_contact_subject`, `mail_contact_content`) VALUES
+(1, 'user01@gmail.com', 'Refund', 'Error product.'),
+(6, 'grimreaperld@gmail.com', 'Error', 'Refund my money'),
+(5, 'user02@gmail.com', 'Test01', 'Check01');
 
 -- --------------------------------------------------------
 
@@ -66,7 +90,10 @@ INSERT INTO `mails_histories` (`mail_history_id`, `mail_history_name`, `mail_his
 (6, 'grimreaperld@gmail.com', 'Test03', 'Check03'),
 (7, 'grimreaperld@gmail.com', 'Guitar song', 'Source: (Alan Walker) Faded - Fingerstyle Guitar Cover (with TABS)\r\nName: https://www.youtube.com/watch?v=44FPny8k4DM'),
 (4, 'grimreaperld@gmail.com', 'Test01', 'Check01'),
-(8, 'grimreaperld@gmail.com', 'Test04', 'Check04');
+(9, 'kinokonguyen0196@outlook.com', 'Refund', 'Reply about "Error" with content "Refund my money".\r\nWe\'re reply soon.'),
+(8, 'grimreaperld@gmail.com', 'Test04', 'Check04'),
+(10, 'grimreaperld@gmail.com', 'Refund', 'Reply about "Error" with content "Refund my money".\r\nWe\'re reply soon.'),
+(11, 'sontung.buinguyen@gmail.com', 'Refund', 'Sr, check mail thôi. K có gì đâu.');
 
 --
 -- Indexes for dumped tables
@@ -78,6 +105,12 @@ INSERT INTO `mails_histories` (`mail_history_id`, `mail_history_name`, `mail_his
 ALTER TABLE `mails`
   ADD PRIMARY KEY (`mail_id`),
   ADD UNIQUE KEY `mail_name` (`mail_name`);
+
+--
+-- Indexes for table `mails_contacts`
+--
+ALTER TABLE `mails_contacts`
+  ADD PRIMARY KEY (`mail_contact_id`);
 
 --
 -- Indexes for table `mails_histories`
@@ -93,12 +126,17 @@ ALTER TABLE `mails_histories`
 -- AUTO_INCREMENT for table `mails`
 --
 ALTER TABLE `mails`
-  MODIFY `mail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `mail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `mails_contacts`
+--
+ALTER TABLE `mails_contacts`
+  MODIFY `mail_contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `mails_histories`
 --
 ALTER TABLE `mails_histories`
-  MODIFY `mail_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `mail_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
