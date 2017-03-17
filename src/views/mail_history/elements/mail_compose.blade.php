@@ -24,8 +24,7 @@
     {!! Form::textarea('mail_content', $mail_history_content, 
         array(
             'rows' => '4', 
-            'cols' => '75', 
-            'width' => '100%', 
+            'class' => 'form-control',
             'placeholder' => trans('mail::mail_admin.mail_content'))
         ) !!}
     <!-- /END CONTENT -->

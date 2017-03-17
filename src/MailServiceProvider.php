@@ -78,21 +78,26 @@ class MailServiceProvider extends ServiceProvider {
                 /**
                  * mails
                  */
-                //list
-                trans('mail::mail_admin.page_list') => [
-                    'url' => URL::route('admin_mail'),
-                    "icon" => '<i class="fa fa-users"></i>'
+                //Compose
+                trans('mail::mail_admin.compose') => [
+                    'url' => URL::route('admin_mail.compose'),
+                    "icon" => '<i class="fa fa-paper-plane"></i>'
                 ],
-                //add
-                trans('mail::mail_admin.'.$is_action) => [
-                    'url' => URL::route('admin_mail.edit'),
-                    "icon" => '<i class="fa fa-users"></i>'
+                //mail contact
+                trans('mail::mail_admin.inbox') => [
+                    'url' => URL::route('admin_mail.mail_contact'),
+                    "icon" => '<i class="fa fa-inbox"></i>'
                 ],
-                //add
+                //mail history
                 trans('mail::mail_admin.mail_sent') => [
                     'url' => URL::route('admin_mail.mail_sent'),
-                    "icon" => '<i class="fa fa-users"></i>'
+                    "icon" => '<i class="fa fa-inbox"></i>'
                 ],
+                //list
+                trans('mail::mail_admin.contact') => [
+                    'url' => URL::route('admin_mail'),
+                    "icon" => '<i class="fa fa-users"></i>'
+                ],                                
             ]);
             //
         });

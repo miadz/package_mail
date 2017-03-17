@@ -12,7 +12,7 @@ return [
     /**
      * Page
      */
-
+    'compose' => 'Compose',
     'page_list' => 'List of mails',
     'page_add' => 'Add new mail',
     'mail_sent' => 'Sent mail',
@@ -20,6 +20,9 @@ return [
     'page_search' => 'Mail page search',
     'page_category'=> 'List categories of mail',
     'page_send'=> 'Send mail page',
+    'mail_contact' => 'Contact',
+    'inbox' => 'Inbox',
+    'contact' => 'Contact',
 
     /**
      * Form

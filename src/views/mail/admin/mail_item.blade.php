@@ -1,8 +1,8 @@
 <!--ADD MAIL-->
 <div class="row margin-bottom-12">
     <div class="col-md-12">
-        <a href="{!! URL::route('admin_mail.compose') !!}" class="btn btn-info pull-right">
-            <i class="fa fa-paper-plane"></i>{{trans('mail::mail_admin.mail_compose_button')}}
+        <a href="{!! URL::route('admin_mail.edit') !!}" class="btn btn-info pull-right">
+            <i class="fa fa-plus"></i>{{trans('mail::mail_admin.page_add')}}
         </a>
     </div>
 </div>

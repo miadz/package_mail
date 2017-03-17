@@ -9,6 +9,14 @@ Route::get('mail', [
     'as' => 'mail',
     'uses' => 'Foostart\Mail\Controllers\Front\MailFrontController@index'
 ]);
+Route::get('mail/contact', [
+    'as' => 'mail.contact',
+    'uses' => 'Foostart\Mail\Controllers\Front\MailFrontController@contact'
+]);
+Route::post('mail/contact_save', [
+    'as' => 'mail.contact_save',
+    'uses' => 'Foostart\Mail\Controllers\Front\MailFrontController@contactSave'
+]);
 
 
 /**
@@ -87,6 +95,21 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('admin/mail/mail_history_delete', [
             'as' => 'admin_mail.mail_history_delete',
             'uses' => 'Foostart\Mail\Controllers\Admin\MailHistoryAdminController@delete'
+        ]);
+        /**
+         * mail contact
+         */
+        Route::get('admin/mail/mail_contact', [
+            'as' => 'admin_mail.mail_contact',
+            'uses' => 'Foostart\Mail\Controllers\Admin\MailContactAdminController@index'
+        ]);
+        Route::get('admin/mail/mail_contact_delete', [
+            'as' => 'admin_mail.mail_contact_delete',
+            'uses' => 'Foostart\Mail\Controllers\Admin\MailContactAdminController@delete'
+        ]);
+        Route::get('admin/mail/mail_contact_reply', [
+            'as' => 'admin_mail.mail_contact_reply',
+            'uses' => 'Foostart\Mail\Controllers\Admin\MailContactAdminController@reply'
         ]);
     });
 });

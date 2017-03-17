@@ -191,6 +191,8 @@ class MailAdminController extends Controller {
 
         $mail_id = (int) $request->get('id');
         $mail_address = (string) $request->get('mail_address');
+        // var_dump($input);
+        // die();
         //$file = Input::file('fileToUpload');
 
         // var_dump($mail_address);

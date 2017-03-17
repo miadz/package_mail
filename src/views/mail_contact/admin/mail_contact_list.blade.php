@@ -1,7 +1,7 @@
 @extends('laravel-authentication-acl::admin.layouts.base-2cols')
 
 @section('title')
-Admin area: {{ trans('mail::mail_admin.page_list') }}
+Admin area: {{ trans('mail::mail_admin.inbox') }}
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@ Admin area: {{ trans('mail::mail_admin.page_list') }}
             <div class="panel panel-info">
 
                 <div class="panel-heading">
-                    <h3 class="panel-title bariol-thin"><i class="fa fa-group"></i> {!! $request->all() ? trans('mail::mail_admin.page_search') : trans('mail::mail_admin.page_list') !!}</h3>
+                    <h3 class="panel-title bariol-thin"><i class="fa fa-group"></i> {!! $request->all() ? trans('mail::mail_admin.page_search') : trans('mail::mail_admin.inbox') !!}</h3>
                 </div>
                 
                 <!--MESSAGE-->
@@ -31,7 +31,7 @@ Admin area: {{ trans('mail::mail_admin.page_list') }}
                 @endif 
                 <!--ERRORS-->
                 <div class="panel-body">
-                    @include('mail::mail.admin.mail_item')
+                    @include('mail::mail_contact.admin.mail_contact_item')
                 </div>
             </div>
         </div>
