@@ -24,8 +24,7 @@
     {!! Form::textarea('content', null, 
         array(
             'rows' => '4', 
-            'cols' => '125%', 
-            'width' => '100%', 
+            'class' => 'form-control', 
             'placeholder' => trans('mail::mail_admin.mail_content'))
         ) !!}
     <!-- /END CONTENT -->

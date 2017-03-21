@@ -11,7 +11,8 @@ class MailsHistories extends Model {
     protected $fillable = [
         'mail_history_name',
         'mail_history_subject',
-        'mail_history_content'
+        'mail_history_content',
+        'mail_history_attach'
     ];
     protected $primaryKey = 'mail_history_id';
 
@@ -43,7 +44,8 @@ class MailsHistories extends Model {
         $mail_history = self::create([
                     'mail_history_name' => $input['mail_history_name'],
                     'mail_history_subject' => $input['mail_history_subject'],
-                    'mail_history_content' => $input['mail_history_content']
+                    'mail_history_content' => $input['mail_history_content'],
+                    'mail_history_attach' => $input['mail_history_attach']
         ]);
         return $mail_history;
     }

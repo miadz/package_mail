@@ -39,20 +39,20 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                                 'files'=>true, 
                                 'method' => 'post'])  !!}
 
-                            <!-- mail NAME TEXT-->
+                            <!-- MAIL NAME TEXT-->
                             @include('mail::mail.elements.mail_compose', ['name' => 'mail_name'])
-                            <!-- /END mail NAME TEXT -->
+                            <!-- /END MAIL NAME TEXT -->
                             {!! Form::hidden('id',@$mail->mail_id) !!}
 
-                            <!-- DELETE BUTTON -->
+                            <!-- CANCEL BUTTON -->
                             <a href="{!! URL::route('admin_mail.delete',['id' => @$mail->id, '_token' => csrf_token()]) !!}"
-                               class="btn btn-danger pull-right margin-left-5 delete">
-                                Cancel
+                               class="btn btn-danger pull-right margin-left-5">
+                                {!! trans('mail::mail_admin.cancel') !!}
                             </a>
-                            <!-- DELETE BUTTON -->
+                            <!-- CANCEL BUTTON -->
 
                             <!-- SAVE BUTTON -->
-                            {!! Form::submit('Send', array("class"=>"btn btn-info pull-right ")) !!}
+                            {!! Form::submit(trans('mail::mail_admin.send'), array("class"=>"btn btn-info pull-right ")) !!}
                             <!-- /SAVE BUTTON -->
 
                             {!! Form::close() !!}

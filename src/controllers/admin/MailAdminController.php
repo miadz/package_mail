@@ -161,9 +161,9 @@ class MailAdminController extends Controller {
         return Redirect::route("admin_mail");
     }
 
-    /*==================================================================================
-    ====================================== MAIL ======================================
-    ==================================================================================*/
+    /*==========================================================================
+    =================================== MAIL ===================================
+    ============================================================================*/
     /**
      *
      * @return type
@@ -184,24 +184,23 @@ class MailAdminController extends Controller {
         return view('mail::mail.admin.mail_send', $this->data_view);
     }
 
+    /*
+        Wrong when send. Go to https://www.google.com/settings/security/lesssecureapps and active it.
+    */
     public function mailSend(Request $request){
         $mail = NULL;
         $mail_history = NULL;
         $input = $request->all();
-
         $mail_id = (int) $request->get('id');
         $mail_address = (string) $request->get('mail_address');
-        // var_dump($input);
-        // die();
-        //$file = Input::file('fileToUpload');
+        $file = Input::file('fileToUpload');
+        $file_path = null;
 
-        // var_dump($mail_address);
-        // var_dump($mail_subject);
-        // var_dump($mail_content);
-        // if($file != null){
-        //     $this->attachFile($file);
-        // }
-        //die();
+        if($file != null){
+            $file_path = $this->attachFile($file);
+        }
+        // var_dump($file_path);
+        // die();
 
         if($mail_address == null){
             if (!empty($mail_id) && (is_int($mail_id))) {
@@ -212,24 +211,39 @@ class MailAdminController extends Controller {
                 'author' => 'ADMIN PACKAGE',
                 'address' => $mail->mail_name,
                 'subject' => $input['mail_subject'],
-                'contents' => $input['mail_content']
+                'contents' => $input['mail_content'],
+                'file_path' => $file_path
                 ];
             Mail::send(['view' => 'mail'], $data, function($message) use ($data){
                 $message->to($data['address'])
                     ->cc($data['address'])
                     ->subject($data['subject'])
                     ->setBody($data['contents']);
-                // $message->attach($file['fileToUpload']->getRealPath(), array(
-                //     'as' => $file['fileToUpload']->getClientOriginalName(), 
-                //     'mime' => $file['fileToUpload']->getMimeType()));
-                //$message->attach($file);
+                $message->attach(public_path().'/'.$data['file_path']);
+                // try {
+                //     $message->attach(Swift_Attachment::fromPath(public_path()."/robots.txt"));
+                // } catch (Swift_IoException $e) {
+                //     $this->_throwException($e->getMessage());
+                // }
+                // if ($file = $request->file('fileToUpload')) {
+                //     var_dump('hasFile');
+                //     $message->attach(
+                //         $file->getRealPath(),
+                //             array(
+                //                 'as'   => $file->getClientOriginalName(), 
+                //                 'mime' => $file->getMimeType()
+                //        )
+                //     );
+                // }
                 $message->from('rootpowercontrol@gmail.com', 'ADMIN');
             });
 
             $request->request->add([
                 'mail_history_name' => $mail->mail_name,
                 'mail_history_subject' => $input['mail_subject'],
-                'mail_history_content' => $input['mail_content']]);
+                'mail_history_content' => $input['mail_content'],
+                'mail_history_attach' => $file_path
+            ]);
             $input = $request->all();
             $mail_history = $this->obj_mail_history->add_mail_history($input);
             
@@ -238,25 +252,36 @@ class MailAdminController extends Controller {
             return Redirect::route("admin_mail");
         }
         else {
+
+            // $this->obj_validator = new MailAdminValidator();
+            // if (!$this->obj_validator->validate($input)) {
+            //     $data['errors'] = $this->obj_validator->getErrors();
+            // }
+            // else {}
+
             $data = [
                 'confirm' => 'confirm',
                 'author' => 'ADMIN PACKAGE',
                 'address' => $input['mail_address'],
                 'subject' => $input['mail_subject'],
-                'contents' => $input['mail_content']
+                'contents' => $input['mail_content'],
+                'file_path' => $file_path
                 ];
             Mail::send(['view' => 'mail'], $data, function($message) use ($data){
                 $message->to($data['address'])
                     ->cc($data['address'])
                     ->subject($data['subject'])
                     ->setBody($data['contents']);
+                $message->attach(public_path().'/'.$data['file_path']);
                 $message->from('rootpowercontrol@gmail.com', 'ADMIN');
             });
 
             $request->request->add([
                 'mail_history_name' => $input['mail_address'],
                 'mail_history_subject' => $input['mail_subject'],
-                'mail_history_content' => $input['mail_content']]);
+                'mail_history_content' => $input['mail_content'],
+                'mail_history_attach' => $file_path
+            ]);
             $input = $request->all();
             $mail_history = $this->obj_mail_history->add_mail_history($input);
             
@@ -267,20 +292,25 @@ class MailAdminController extends Controller {
     }
     public function attachFile($file)
     {
+        // var_dump($file);
+        // var_dump($file->getSize());
+        //var_dump(filesize($file));
+        // die();
         if ($file != null && $file->isValid()){
-            var_dump('SS');
-
             $location_file = public_path();
             $file_name = null;
             $destinationPath = 'upload/';
 
-            //$extension = Input::file($file)->getClientOriginalExtension();
-            $file_name = rand(11,99);//.'.'.$extension;
-            Input::file($file)->move($destinationPath, $fileName);
+            $extension = $file->getClientOriginalExtension();
+            //$file_name = rand(111,999).'.'.$extension;
+            $file_name = $file->getClientOriginalName();
+            // var_dump($file_name);
+            // die();
+            $file->move($destinationPath, $file_name);
             
-            $location_file += $destinationPath.$file_name;
+            //$location_file .= '/'.$destinationPath.$file_name;
 
-            var_dump($location_file);
+            return $destinationPath.$file_name;
         }
     }
     public function mailCompose(Request $request){

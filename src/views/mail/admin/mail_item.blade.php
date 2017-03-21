@@ -40,7 +40,7 @@
                 <!-- /END DELETE BUTTON -->
 
                 <!-- SEND MAIL BUTTON -->
-                <a href="{!! URL::route('admin_mail.mail_prepare',['id' =>  $mail->mail_id, '_token' => csrf_token()]) !!}" class="margin-left-5 delete"><i class="fa fa-envelope-o fa-2x"></i></a>
+                <a href="{!! URL::route('admin_mail.mail_prepare',['id' =>  $mail->mail_id, '_token' => csrf_token()]) !!}" class="margin-left-5"><i class="fa fa-envelope-o fa-2x"></i></a>
                 <!-- /END SEND MAIL BUTTON -->
 
                 <span class="clearfix"></span>
