@@ -40,6 +40,7 @@ return [
     'mail_subject' => 'Subject',
     'mail_content' => 'Content',
     'mail_attach_file' => 'Attach file',
+    'mail_role' => '(Add "," between separate mail address)',
 
     /**
      * Message

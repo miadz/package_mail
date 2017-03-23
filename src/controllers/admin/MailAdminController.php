@@ -193,12 +193,36 @@ class MailAdminController extends Controller {
         $input = $request->all();
         $mail_id = (int) $request->get('id');
         $mail_address = (string) $request->get('mail_address');
+        $count_mail = 0;
+        
+        // var_dump($mail_address);
+        
+        $arr_mail = explode(',', $mail_address);
+        $count_mail = count($arr_mail);
+
+        // var_dump($arr_mail);
+        // var_dump($count_mail);
+
+        // $src = "You should eat fruits, .nav-tabs.nav-justified{width:100%;border-bottom:0}";
+        // $f = "nav-tabs";
+        // $pos = strpos($src, $f);
+        // var_dump(substr($src, $pos));
+        // die();
+
         $file = Input::file('fileToUpload');
         $file_path = null;
 
         if($file != null){
             $file_path = $this->attachFile($file);
         }
+
+        $data = [
+            'confirm' => 'confirm',
+            'author' => 'ADMIN PACKAGE',
+            'subject' => $input['mail_subject'],
+            'contents' => $input['mail_content'],
+            'file_path' => $file_path
+            ];
         // var_dump($file_path);
         // die();
 
@@ -206,37 +230,8 @@ class MailAdminController extends Controller {
             if (!empty($mail_id) && (is_int($mail_id))) {
                 $mail = $this->obj_mail->find($mail_id);
             }
-            $data = [
-                'confirm' => 'confirm',
-                'author' => 'ADMIN PACKAGE',
-                'address' => $mail->mail_name,
-                'subject' => $input['mail_subject'],
-                'contents' => $input['mail_content'],
-                'file_path' => $file_path
-                ];
-            Mail::send(['view' => 'mail'], $data, function($message) use ($data){
-                $message->to($data['address'])
-                    ->cc($data['address'])
-                    ->subject($data['subject'])
-                    ->setBody($data['contents']);
-                $message->attach(public_path().'/'.$data['file_path']);
-                // try {
-                //     $message->attach(Swift_Attachment::fromPath(public_path()."/robots.txt"));
-                // } catch (Swift_IoException $e) {
-                //     $this->_throwException($e->getMessage());
-                // }
-                // if ($file = $request->file('fileToUpload')) {
-                //     var_dump('hasFile');
-                //     $message->attach(
-                //         $file->getRealPath(),
-                //             array(
-                //                 'as'   => $file->getClientOriginalName(), 
-                //                 'mime' => $file->getMimeType()
-                //        )
-                //     );
-                // }
-                $message->from('rootpowercontrol@gmail.com', 'ADMIN');
-            });
+            $data['address'] = $mail->mail_name;
+            $this->sendding($data);
 
             $request->request->add([
                 'mail_history_name' => $mail->mail_name,
@@ -258,23 +253,17 @@ class MailAdminController extends Controller {
             //     $data['errors'] = $this->obj_validator->getErrors();
             // }
             // else {}
-
-            $data = [
-                'confirm' => 'confirm',
-                'author' => 'ADMIN PACKAGE',
-                'address' => $input['mail_address'],
-                'subject' => $input['mail_subject'],
-                'contents' => $input['mail_content'],
-                'file_path' => $file_path
-                ];
-            Mail::send(['view' => 'mail'], $data, function($message) use ($data){
-                $message->to($data['address'])
-                    ->cc($data['address'])
-                    ->subject($data['subject'])
-                    ->setBody($data['contents']);
-                $message->attach(public_path().'/'.$data['file_path']);
-                $message->from('rootpowercontrol@gmail.com', 'ADMIN');
-            });
+            if($count_mail == 1){
+                $data['address'] = $input['mail_address'];
+                $this->sendding($data);
+            }
+            else{
+                foreach ($arr_mail as $key => $value) {
+                    $data['address'] = $value;
+                    $this->sendding($data);
+                    sleep(5);
+                }
+            }
 
             $request->request->add([
                 'mail_history_name' => $input['mail_address'],
@@ -289,6 +278,18 @@ class MailAdminController extends Controller {
             \Session::flash('message', trans('mail::mail_admin.message_send_mail_successfully'));
             return Redirect::route("admin_mail");
         }
+    }
+    public function sendding($data){
+        Mail::send(['view' => 'mail'], $data, function($message) use ($data){
+            $message->to($data['address'])
+                ->cc($data['address'])
+                ->subject($data['subject'])
+                ->setBody($data['contents']);
+            if($data['file_path'] != null){
+                $message->attach(public_path().'/'.$data['file_path']);
+            }
+            $message->from('rootpowercontrol@gmail.com', 'ADMIN');
+        });
     }
     public function attachFile($file)
     {

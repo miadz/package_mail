@@ -2,6 +2,7 @@
 <div class="form-group">
     <!-- MAIL ADDRESS -->
     {!! Form::label(trans('mail::mail_admin.mail_name').':') !!}
+    {!! Form::label(trans('mail::mail_admin.mail_role')) !!}
     {!! Form::text('mail_address', null, [
         'class' => 'form-control', 
         'placeholder' => trans('mail::mail_admin.mail_name').'', 
