@@ -23,14 +23,14 @@ class MailFrontController extends Controller
 
     public function index(Request $request)
     {
-        
+        //
     }
 
     public function contact(Request $request){
         $this->data_view = array_merge($this->data_view, array(
             'request' => $request
         ));
-        return view('mail::mail_contact.front.index', $this->data_view);
+        return view('mail::mail_contact.front.contact', $this->data_view);
     }
     public function contactSave(Request $request){
         $mail_contact = null;
@@ -45,6 +45,6 @@ class MailFrontController extends Controller
 
         //Message
         \Session::flash('message', trans('mail::mail_admin.message_add_successfully'));
-        return Redirect::route("mail.contact", ["id" => $mail_contact->mail_contact_id]);
+        return Redirect::route("mail.contact");
     }
 }
