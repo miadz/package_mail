@@ -11,16 +11,23 @@
         <div class="col-md-8">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title bariol-thin"><i class="fa fa-group"></i> {!! 'mail' !!}</h3>
+                    <h3 class="panel-title bariol-thin">
+                        <i class="fa fa-group"></i> 
+                        {!! 'mail' !!}
+                    </h3>
                 </div>
                 <div class="panel-body">
-                    Admin mail
+                    {!! trans('mail::mail_admin.admin_mail') !!}
                </div>
            </div>
         </div>
+
+        <!-- SEARCH -->
         <div class="col-md-4">
             @include('mail::mail.admin.mail_search')
         </div>
+        <!-- /END SEARCH -->
+
     </div>
 </div>
 @stop

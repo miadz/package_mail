@@ -6,7 +6,6 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
 @section('content')
 <div class="row">
     <div class="col-md-12">
-
         <div class="col-md-9">
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -15,20 +14,30 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                     </h3>
                 </div>
 
+                <!-- ERROR -->
                 {{-- model general errors from the form --}}
                 @if($errors->has('mail_name') )
-                    <div class="alert alert-danger">{!! $errors->first('mail_name') !!}</div>
+                    <div class="alert alert-danger">
+                        {!! $errors->first('mail_name') !!}
+                    </div>
                 @endif
 
                 @if($errors->has('name_unvalid_length') )
-                    <div class="alert alert-danger">{!! $errors->first('name_unvalid_length') !!}</div>
+                    <div class="alert alert-danger">
+                        {!! $errors->first('name_unvalid_length') !!}
+                    </div>
                 @endif
+                <!-- /END ERROR -->
 
+                <!-- MESSAGE -->
                 {{-- successful message --}}
                 <?php $message = Session::get('message'); ?>
                 @if( isset($message) )
-                <div class="alert alert-success">{{$message}}</div>
+                    <div class="alert alert-success">
+                        {{$message}}
+                    </div>
                 @endif
+                <!-- /END MESSAGE -->
 
                 <div class="panel-body">
                     <div class="row">
@@ -40,21 +49,22 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                                 'method' => 'post'])  !!}
 
 
-                            <!-- mail NAME TEXT-->
+                            <!-- MAIl NAME TEXT-->
                             @include('mail::mail.elements.mail', ['name' => 'mail_name'])
-                            <!-- /END mail NAME TEXT -->
+                            <!-- /END MAIl NAME TEXT -->
+
                             {!! Form::hidden('id',@$mail->mail_id) !!}
 
-                            <!-- DELETE BUTTON -->
+                            <!-- CANCEL BUTTON -->
                             <a href="{!! URL::route('admin_mail.mail_sent',['id' => @$mail->id, '_token' => csrf_token()]) !!}"
                                class="btn btn-danger pull-right margin-left-5 delete">
                                 {!! trans('mail::mail_admin.cancel') !!}
                             </a>
-                            <!-- DELETE BUTTON -->
+                            <!-- CANCEL BUTTON -->
 
-                            <!-- SAVE BUTTON -->
+                            <!-- SEND BUTTON -->
                             {!! Form::submit('Send', array("class"=>"btn btn-info pull-right")) !!}
-                            <!-- /SAVE BUTTON -->
+                            <!-- /SEND BUTTON -->
 
                             {!! Form::close() !!}
                         </div>
@@ -63,9 +73,11 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
             </div>
         </div>
 
+        <!-- SEARCH -->
         <div class='col-md-3'>
             @include('mail::mail.admin.mail_search')
         </div>
+        <!-- /END SEARCH -->
 
     </div>
 </div>

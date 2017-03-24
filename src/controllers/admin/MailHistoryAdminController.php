@@ -51,6 +51,7 @@ class MailHistoryAdminController extends Controller {
                   //Message
                 \Session::flash('message', trans('mail::mail_admin.message_delete_successfully'));
 
+                $this->deleteFile($mail_history_id);
                 $mail_history->delete();
             }
         } else {
@@ -64,6 +65,24 @@ class MailHistoryAdminController extends Controller {
         return Redirect::route("admin_mail.mail_sent");
     }
 
+    /**
+     *
+     * @return type
+     */
+    public function deleteFile($id){
+        $dataName = null;
+        $mail_history = $this->obj_mail_history->find($id);
+            $dataName = $mail_history->mail_history_attach;
+        $checkFile = file_exists(public_path() . '/' . $dataName);
+        if ($checkFile){
+            unlink(public_path() . '/' . $dataName);
+        }
+    }
+
+    /**
+     *
+     * @return type
+     */
     public function mailForward(Request $request){
 
         $mail_history = NULL;
@@ -72,7 +91,6 @@ class MailHistoryAdminController extends Controller {
         if (!empty($mail_history_id) && (is_int($mail_history_id))) {
             $mail_history = $this->obj_mail_history->find($mail_history_id);
         }
-
         $this->data_view = array_merge($this->data_view, array(
             'mail_history' => $mail_history,
             'request' => $request

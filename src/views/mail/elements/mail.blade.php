@@ -2,8 +2,10 @@
 <div class="form-group">
     <?php $mail_name = $request->get('mail_titlename') ? $request->get('mail_name') : @$mail->mail_name ?>
 
+    <!-- MAIL TO -->
     {!! Form::label('Mail to: ') !!}
     {!! Form::label($name, $mail_name, trans('mail::mail_admin.name').':') !!}
+    <!-- /END MAIL TO -->
     <br>
     <!-- SUBJECT -->
     {!! Form::label(trans('mail::mail_admin.mail_subject').':') !!}

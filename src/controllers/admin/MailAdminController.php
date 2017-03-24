@@ -5,11 +5,9 @@ use App\Http\Controllers\Controller;
 use URL;
 use Route,
     Redirect;
+use Illuminate\Support\Facades\Input;
 use Foostart\Mail\Models\Mails;
 use Foostart\Mail\Models\MailsHistories;
-use Mail;
-use Illuminate\Support\Facades\Input;
-use Swift_Attachment;
 /**
  * Validators
  */
@@ -175,7 +173,6 @@ class MailAdminController extends Controller {
         if (!empty($mail_id) && (is_int($mail_id))) {
             $mail = $this->obj_mail->find($mail_id);
         }
-
         $this->data_view = array_merge($this->data_view, array(
             'mail' => $mail,
             'request' => $request
@@ -184,136 +181,10 @@ class MailAdminController extends Controller {
         return view('mail::mail.admin.mail_send', $this->data_view);
     }
 
-    /*
-        Wrong when send. Go to https://www.google.com/settings/security/lesssecureapps and active it.
-    */
-    public function mailSend(Request $request){
-        $mail = NULL;
-        $mail_history = NULL;
-        $input = $request->all();
-        $mail_id = (int) $request->get('id');
-        $mail_address = (string) $request->get('mail_address');
-        $count_mail = 0;
-        
-        // var_dump($mail_address);
-        
-        $arr_mail = explode(',', $mail_address);
-        $count_mail = count($arr_mail);
-
-        // var_dump($arr_mail);
-        // var_dump($count_mail);
-
-        // $src = "You should eat fruits, .nav-tabs.nav-justified{width:100%;border-bottom:0}";
-        // $f = "nav-tabs";
-        // $pos = strpos($src, $f);
-        // var_dump(substr($src, $pos));
-        // die();
-
-        $file = Input::file('fileToUpload');
-        $file_path = null;
-
-        if($file != null){
-            $file_path = $this->attachFile($file);
-        }
-
-        $data = [
-            'confirm' => 'confirm',
-            'author' => 'ADMIN PACKAGE',
-            'subject' => $input['mail_subject'],
-            'contents' => $input['mail_content'],
-            'file_path' => $file_path
-            ];
-        // var_dump($file_path);
-        // die();
-
-        if($mail_address == null){
-            if (!empty($mail_id) && (is_int($mail_id))) {
-                $mail = $this->obj_mail->find($mail_id);
-            }
-            $data['address'] = $mail->mail_name;
-            $this->sendding($data);
-
-            $request->request->add([
-                'mail_history_name' => $mail->mail_name,
-                'mail_history_subject' => $input['mail_subject'],
-                'mail_history_content' => $input['mail_content'],
-                'mail_history_attach' => $file_path
-            ]);
-            $input = $request->all();
-            $mail_history = $this->obj_mail_history->add_mail_history($input);
-            
-            //Message
-            \Session::flash('message', trans('mail::mail_admin.message_send_mail_successfully'));
-            return Redirect::route("admin_mail");
-        }
-        else {
-
-            // $this->obj_validator = new MailAdminValidator();
-            // if (!$this->obj_validator->validate($input)) {
-            //     $data['errors'] = $this->obj_validator->getErrors();
-            // }
-            // else {}
-            if($count_mail == 1){
-                $data['address'] = $input['mail_address'];
-                $this->sendding($data);
-            }
-            else{
-                foreach ($arr_mail as $key => $value) {
-                    $data['address'] = $value;
-                    $this->sendding($data);
-                    sleep(5);
-                }
-            }
-
-            $request->request->add([
-                'mail_history_name' => $input['mail_address'],
-                'mail_history_subject' => $input['mail_subject'],
-                'mail_history_content' => $input['mail_content'],
-                'mail_history_attach' => $file_path
-            ]);
-            $input = $request->all();
-            $mail_history = $this->obj_mail_history->add_mail_history($input);
-            
-            //Message
-            \Session::flash('message', trans('mail::mail_admin.message_send_mail_successfully'));
-            return Redirect::route("admin_mail");
-        }
-    }
-    public function sendding($data){
-        Mail::send(['view' => 'mail'], $data, function($message) use ($data){
-            $message->to($data['address'])
-                ->cc($data['address'])
-                ->subject($data['subject'])
-                ->setBody($data['contents']);
-            if($data['file_path'] != null){
-                $message->attach(public_path().'/'.$data['file_path']);
-            }
-            $message->from('rootpowercontrol@gmail.com', 'ADMIN');
-        });
-    }
-    public function attachFile($file)
-    {
-        // var_dump($file);
-        // var_dump($file->getSize());
-        //var_dump(filesize($file));
-        // die();
-        if ($file != null && $file->isValid()){
-            $location_file = public_path();
-            $file_name = null;
-            $destinationPath = 'upload/';
-
-            $extension = $file->getClientOriginalExtension();
-            //$file_name = rand(111,999).'.'.$extension;
-            $file_name = $file->getClientOriginalName();
-            // var_dump($file_name);
-            // die();
-            $file->move($destinationPath, $file_name);
-            
-            //$location_file .= '/'.$destinationPath.$file_name;
-
-            return $destinationPath.$file_name;
-        }
-    }
+    /**
+     *
+     * @return type
+     */
     public function mailCompose(Request $request){
         $this->data_view = array_merge($this->data_view, array(
             'request' => $request

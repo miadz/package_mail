@@ -12,10 +12,27 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <td style='width:5%'>{{ trans('mail::mail_admin.order') }}</td>
-            <th style='width:10%'>{{ trans('mail::mail_admin.mail_id') }}</th>
-            <th style='width:50%'>{{ trans('mail::mail_admin.mail_name') }}</th>
-            <th style='width:20%'>{{ trans('mail::mail_admin.operations') }}</th>
+            <td style='width:5%'>
+                {{ trans('mail::mail_admin.order') }}
+            </td>
+
+            <!-- MAIL ID -->
+            <th style='width:10%'>
+                {{ trans('mail::mail_admin.mail_id') }}
+            </th>
+            <!-- /END MAIL ID -->
+
+            <!-- MAIL NAME -->
+            <th style='width:50%'>
+                {{ trans('mail::mail_admin.mail_name') }}
+            </th>
+            <!-- /END MAIL NAME -->
+
+            <!-- MAIL OPERATION -->
+            <th style='width:20%'>
+                {{ trans('mail::mail_admin.operations') }}
+            </th>
+            <!-- /END MAIL OPERATION -->
         </tr>
     </thead>
     <tbody>
@@ -28,8 +45,19 @@
             <td>
                 <?php echo $counter; $counter++ ?>
             </td>
-            <td>{!! $mail->mail_id !!}</td>
-            <td>{!! $mail->mail_name !!}</td>
+
+            <!-- MAIL ID -->
+            <td>
+                {!! $mail->mail_id !!}
+            </td>
+            <!-- /END MAIL ID -->
+
+            <!-- MAIL NAME -->
+            <td>
+                {!! $mail->mail_name !!}
+            </td>
+            <!-- /END MAIL NAME -->
+
             <td>
                 <!-- EDIT BUTTON -->
                 <a href="{!! URL::route('admin_mail.edit', ['id' => $mail->mail_id]) !!}"><i class="fa fa-edit fa-2x"></i></a>
@@ -39,9 +67,9 @@
                 <a href="{!! URL::route('admin_mail.delete',['id' =>  $mail->mail_id, '_token' => csrf_token()]) !!}" class="margin-left-5 delete"><i class="fa fa-trash-o fa-2x"></i></a>
                 <!-- /END DELETE BUTTON -->
 
-                <!-- SEND MAIL BUTTON -->
+                <!-- MAIL PREPARE BUTTON -->
                 <a href="{!! URL::route('admin_mail.mail_prepare',['id' =>  $mail->mail_id, '_token' => csrf_token()]) !!}" class="margin-left-5"><i class="fa fa-envelope-o fa-2x"></i></a>
-                <!-- /END SEND MAIL BUTTON -->
+                <!-- /END MAIL PREPARE BUTTON -->
 
                 <span class="clearfix"></span>
             </td>
@@ -51,9 +79,13 @@
 </table>
 @else
  <span class="text-warning">
+
+    <!-- MESSAGE FAIL -->
 	<h5>
 		{{ trans('mail::mail_admin.message_find_failed') }}
 	</h5>
+    <!-- /END MESSAGE FAIL -->
+
  </span>
 @endif
 <div class="paginator">

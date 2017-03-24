@@ -71,7 +71,7 @@ Route::group(['middleware' => ['web']], function () {
         
         Route::post('admin/mail/send', [
             'as' => 'admin_mail.send',
-            'uses' => 'Foostart\Mail\Controllers\Admin\MailAdminController@mailSend'
+            'uses' => 'Foostart\Mail\Controllers\Admin\MailSendController@mailSend'
         ]);
 
         Route::get('admin/mail/mail_compose', [

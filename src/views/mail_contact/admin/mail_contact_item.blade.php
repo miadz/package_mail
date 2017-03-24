@@ -2,12 +2,40 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <td style='width:5%'>{{ trans('mail::mail_admin.order') }}</td>
-            <th style='width:10%'>{{ trans('mail::mail_admin.mail_id') }}</th>
-            <th style='width:20%'>{{ trans('mail::mail_admin.mail_name') }}</th>
-            <th style='width:15%'>{{ trans('mail::mail_admin.mail_subject') }}</th>
-            <th style='width:30%'>{{ trans('mail::mail_admin.mail_content') }}</th>
-            <th style='width:20%'>{{ trans('mail::mail_admin.operations') }}</th>
+            <td style='width:5%'>
+                {{ trans('mail::mail_admin.order') }}
+            </td>
+
+            <!-- MAIL ID -->
+            <th style='width:10%'>
+                {{ trans('mail::mail_admin.mail_id') }}
+            </th>
+            <!-- /END MAIL ID -->
+
+            <!-- MAIL NAME -->
+            <th style='width:20%'>
+                {{ trans('mail::mail_admin.mail_name') }}
+            </th>
+            <!-- /END MAIL NAME -->
+
+            <!-- MAIL SUBJECT -->
+            <th style='width:15%'>
+                {{ trans('mail::mail_admin.mail_subject') }}
+            </th>
+            <!-- /END MAIL SUBJECT -->
+
+            <!-- MAIL CONTENT -->
+            <th style='width:30%'>
+                {{ trans('mail::mail_admin.mail_content') }}
+            </th>
+            <!-- /END MAIL CONTENT -->
+
+            <!-- MAIL OPERATION -->
+            <th style='width:20%'>
+                {{ trans('mail::mail_admin.operations') }}
+            </th>
+            <!-- /END MAIL OPERATION -->
+
         </tr>
     </thead>
     <tbody>
@@ -20,10 +48,31 @@
             <td>
                 <?php echo $counter; $counter++ ?>
             </td>
-            <td>{!! $mail->mail_contact_id !!}</td>
-            <td>{!! $mail->mail_contact_name !!}</td>
-            <td>{!! $mail->mail_contact_subject !!}</td>
-            <td>{!! $mail->mail_contact_content !!}</td>
+
+            <!-- MAIL ID -->
+            <td>
+                {!! $mail->mail_contact_id !!}
+            </td>
+            <!-- /END MAIL ID -->
+
+            <!-- MAIL NAME -->
+            <td>
+                {!! $mail->mail_contact_name !!}
+            </td>
+            <!-- /END MAIL NAME -->
+
+            <!-- MAIL SUBJECT -->
+            <td>
+                {!! $mail->mail_contact_subject !!}
+            </td>
+            <!-- /END MAIL SUBJECT -->
+
+            <!-- MAIL CONTENT -->
+            <td>
+                {!! $mail->mail_contact_content !!}
+            </td>
+            <!-- /END MAIL CONTENT -->
+
             <td>
 
                 <!-- DELETE BUTTON -->
@@ -42,9 +91,13 @@
 </table>
 @else
  <span class="text-warning">
+ 
+    <!-- MESSAGE -->
 	<h5>
 		{{ trans('mail::mail_admin.message_find_failed') }}
 	</h5>
+    <!-- /END MESSAGE -->
+
  </span>
 @endif
 <div class="paginator">

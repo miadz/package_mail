@@ -2,12 +2,39 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <td style='width:5%'>{{ trans('mail::mail_admin.order') }}</td>
-            <th style='width:10%'>{{ trans('mail::mail_admin.mail_id') }}</th>
-            <th style='width:20%'>{{ trans('mail::mail_admin.mail_name') }}</th>
-            <th style='width:10%'>{{ trans('mail::mail_admin.mail_subject') }}</th>
-            <th style='width:30%'>{{ trans('mail::mail_admin.mail_content') }}</th>
-            <th style='width:20%'>{{ trans('mail::mail_admin.operations') }}</th>
+            <td style='width:5%'>
+                {{ trans('mail::mail_admin.order') }}
+            </td>
+
+            <!-- MAIL ID -->
+            <th style='width:10%'>
+                {{ trans('mail::mail_admin.mail_id') }}
+            </th>
+            <!-- /END MAIL ID -->
+
+            <!-- MAIL NAME -->
+            <th style='width:20%'>
+                {{ trans('mail::mail_admin.mail_name') }}
+            </th>
+            <!-- /END MAIL NAME -->
+
+            <!-- MAIL SUBJECT -->
+            <th style='width:10%'>
+                {{ trans('mail::mail_admin.mail_subject') }}
+            </th>
+            <!-- /END MAIL SUBJECT -->
+
+            <!-- MAIL CONTENT -->
+            <th style='width:30%'>
+                {{ trans('mail::mail_admin.mail_content') }}
+            </th>
+            <!-- /END MAIL CONTENT -->
+
+            <!-- MAIL OPERATION -->
+            <th style='width:20%'>
+                {{ trans('mail::mail_admin.operations') }}
+            </th>
+            <!-- /END MAIL OPERATION -->
         </tr>
     </thead>
     <tbody>
@@ -20,15 +47,32 @@
             <td>
                 <?php echo $counter; $counter++ ?>
             </td>
-            <td>{!! $mail->mail_history_id !!}</td>
-            <td>{!! $mail->mail_history_name !!}</td>
-            <td>{!! $mail->mail_history_subject !!}</td>
-            <td>{!! $mail->mail_history_content !!}</td>
-            <td>
 
-                <!-- RESEND MAIL BUTTON -->
-                <!-- <a href="{!! URL::route('admin_mail.mail_prepare',['id' =>  $mail->mail_history_id, '_token' => csrf_token()]) !!}" class="margin-left-5 delete"><i class="fa fa-repeat fa-2x"></i></a> -->
-                <!-- /END RESEND MAIL BUTTON -->
+            <!-- MAIL ID -->
+            <td>
+                {!! $mail->mail_history_id !!}
+            </td>
+            <!-- /END MAIL ID -->
+
+            <!-- MAIL NAME -->
+            <td>
+                {!! $mail->mail_history_name !!}
+            </td>
+            <!-- /END MAIL NAME -->
+
+            <!-- MAIL SUBJECT -->
+            <td>
+                {!! $mail->mail_history_subject !!}
+            </td>
+            <!-- /END MAIL SUBJECT -->
+
+            <td>
+                {!! $mail->mail_history_content !!}
+                @if(!empty($mail->mail_history_attach))
+                    <a href="#"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
+                @endif
+            </td>
+            <td>
 
                 <!-- FORWARD BUTTON -->
                 <a href="{!! URL::route('admin_mail.mail_forward', ['id' => $mail->mail_history_id]) !!}"><i class="fa fa-share fa-2x"></i></a>
@@ -46,9 +90,13 @@
 </table>
 @else
  <span class="text-warning">
+
+    <!-- MESSAGE -->
 	<h5>
 		{{ trans('mail::mail_admin.message_find_failed') }}
 	</h5>
+    <!-- /END MESSAGE -->
+
  </span>
 @endif
 <div class="paginator">

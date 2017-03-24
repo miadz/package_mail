@@ -6,7 +6,6 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
 @section('content')
 <div class="row">
     <div class="col-md-12">
-
         <div class="col-md-8">
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -15,20 +14,30 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                     </h3>
                 </div>
 
+                <!-- ERROR -->
                 {{-- model general errors from the form --}}
                 @if($errors->has('mail_name') )
-                    <div class="alert alert-danger">{!! $errors->first('mail_name') !!}</div>
+                    <div class="alert alert-danger">
+                        {!! $errors->first('mail_name') !!}
+                    </div>
                 @endif
 
                 @if($errors->has('name_unvalid_length') )
-                    <div class="alert alert-danger">{!! $errors->first('name_unvalid_length') !!}</div>
+                    <div class="alert alert-danger">
+                        {!! $errors->first('name_unvalid_length') !!}
+                    </div>
                 @endif
+                <!-- /END ERROR -->
 
+                <!-- MESSAGE -->
                 {{-- successful message --}}
                 <?php $message = Session::get('message'); ?>
                 @if( isset($message) )
-                <div class="alert alert-success">{{$message}}</div>
+                    <div class="alert alert-success">
+                        {{$message}}
+                    </div>
                 @endif
+                <!-- /END MESSAGE -->
 
                 <div class="panel-body">
                     <div class="row">
@@ -40,9 +49,9 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                                 'method' => 'post'])  !!}
 
 
-                            <!-- mail NAME TEXT-->
+                            <!-- MAIL NAME TEXT-->
                             @include('mail::mail_contact.elements.mail', ['name' => 'mail_contact_name'])
-                            <!-- /END mail NAME TEXT -->
+                            <!-- /END MAIL NAME TEXT -->
                             {!! Form::hidden('id',@$mail_contact->mail_contact_id) !!}
 
                             <!-- CANCEL BUTTON -->
@@ -63,9 +72,11 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
             </div>
         </div>
 
+        <!-- SEARCH -->
         <div class='col-md-4'>
             @include('mail::mail.admin.mail_search')
         </div>
+        <!-- /END SEARCH -->
 
     </div>
 </div>

@@ -14,7 +14,10 @@
         </div>
         <!--/END TITLE-->
 
+        <!--SEARCH BUTTON-->
         {!! Form::submit(trans('mail::mail_admin.search').'', ["class" => "btn btn-info pull-right"]) !!}
+        <!--/END SEARCH BUTTON-->
+        
         {!! Form::close() !!}
     </div>
 </div>

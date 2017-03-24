@@ -9,17 +9,20 @@
         <!-- MAIL -->
         <h4>{!! trans('mail::mail_admin.form_heading') !!}</h4>
 
+        <!-- MESSAGE -->
         {{-- successful message --}}
         <?php $message = Session::get('message'); ?>
         @if( isset($message) )
         <div class="alert alert-success">{{$message}}</div>
         @endif
+        <!-- /END MESSAGE -->
         
         {!! Form::open(['route'=>['mail.contact_save', 'id' => @$mail_contact->mail_contact_id],  'files'=>true, 'method' => 'post'])  !!}
         
-        <!-- mail NAME TEXT-->
+        <!-- MAIL NAME TEXT-->
         @include('mail::mail_contact.elements.text', ['name' => 'mail_contact_name'])
-        <!-- /END mail NAME TEXT -->
+        <!-- /END MAIL NAME TEXT -->
+        
         {!! Form::hidden('id',@$mail->mail_id) !!}
 
         <!-- SEND BUTTON -->

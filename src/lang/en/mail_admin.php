@@ -9,6 +9,7 @@ return [
     'mail_category_name_label' => 'mail category name:',
     'mail_id' => 'Mail ID',
     'mail_name' => 'Mail Address',
+    'admin_mail' => 'Admin Mail',
     /**
      * Page
      */
