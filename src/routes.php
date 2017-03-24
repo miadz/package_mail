@@ -96,6 +96,10 @@ Route::group(['middleware' => ['web']], function () {
             'as' => 'admin_mail.mail_history_delete',
             'uses' => 'Foostart\Mail\Controllers\Admin\MailHistoryAdminController@delete'
         ]);
+        Route::get('admin/mail/mail_history_get_attach', [
+            'as' => 'admin_mail.mail_history_get_attach',
+            'uses' => 'Foostart\Mail\Controllers\Admin\MailHistoryAdminController@getAttach'
+        ]);
         /**
          * mail contact
          */

@@ -67,10 +67,12 @@
             <!-- /END MAIL SUBJECT -->
 
             <td>
+                <!-- ATTACHED FILE AND DOWNLOAD -->
                 {!! $mail->mail_history_content !!}
                 @if(!empty($mail->mail_history_attach))
-                    <a href="#"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
+                    <a href="{{ URL::route('admin_mail.mail_history_get_attach', ['id' => $mail->mail_history_id]) }}"><i class="fa fa-paperclip" aria-hidden="true"></i></a>
                 @endif
+                <!-- /END ATTACHED FILE AND DOWNLOAD -->
             </td>
             <td>
 

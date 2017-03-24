@@ -1,6 +1,7 @@
 <?php namespace Foostart\Mail\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use URL;
 use Route,
@@ -97,5 +98,21 @@ class MailHistoryAdminController extends Controller {
         ));
 
         return view('mail::mail_history.admin.mail_history_forward', $this->data_view);
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public function getAttach(Request $request){
+        $mail_history = NULL;
+        $mail_history_id = (int) $request->get('id');
+
+        if (!empty($mail_history_id) && (is_int($mail_history_id))) {
+            $mail_history = $this->obj_mail_history->find($mail_history_id);
+        }
+        $file = public_path().'/'.$mail_history->mail_history_attach;
+        
+        return Response()->download($file);
     }
 }
