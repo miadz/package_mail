@@ -73,8 +73,12 @@ class MailHistoryAdminController extends Controller {
     public function deleteFile($id){
         $dataName = null;
         $mail_history = $this->obj_mail_history->find($id);
-            $dataName = $mail_history->mail_history_attach;
-        $checkFile = file_exists(public_path() . '/' . $dataName);
+        $dataName = $mail_history->mail_history_attach;
+        $checkFile = false;
+
+        if($dataName != null) {
+            $checkFile = file_exists(public_path() . '/' . $dataName);
+        }
         if ($checkFile){
             unlink(public_path() . '/' . $dataName);
         }

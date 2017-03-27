@@ -28,11 +28,12 @@ Package send mail for back-end.
 	MAIL_HOST=smtp.gmail.com
 	MAIL_PORT=587
 	MAIL_USERNAME=your_google_email
-	MAIL_PASSWORD=your_password
+	MAIL_PASSWORD=your_google_email_password
 	MAIL_ENCRYPTION=tls
 ```
 
 ## Step 5: Sign in google mail and go to url: `https://www.google.com/settings/security/lesssecureapps`. Then, active it.
 
 ## Step 6: Make sure this command was run: 
-`php artisan vendor:publish --tag=public --force`
+`php artisan vendor:publish --tag=public --force` and
+`php artisan vendor:publish --tag=config --force`

@@ -23,7 +23,9 @@ class MailServiceProvider extends ServiceProvider {
          $this->publishes([
             __DIR__.'/config/mail_admin.php' => config_path('mail_admin.php'),
         ],'config');
-         $this->publishes([__DIR__.'/public' => public_path('source')],'public');
+         $this->publishes([
+            __DIR__.'/public' => public_path('source')
+        ],'public');
 
         $this->loadViewsFrom(__DIR__ . '/views', 'mail');
 

@@ -41,6 +41,7 @@ return [
     'mail_subject' => 'Subject',
     'mail_content' => 'Content',
     'mail_attach_file' => 'Attach file',
+    'mail_attached_file' => 'Attached file',
     'mail_role' => '(Add "," between separate mail address)',
 
     /**
