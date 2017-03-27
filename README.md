@@ -4,7 +4,7 @@ Package send mail for back-end.
 ## Step 1: Begin by installing this package through Composer. Run the following from the terminal:
 `composer require source/mail`
 
-## Step 2: Open file composer.json. Add line inside:
+## Step 2: Open file `composer.json`. Add line inside:
 ``` php
 "autoload": {
 	// ...
@@ -13,7 +13,7 @@ Package send mail for back-end.
 }
 ```
 
-## Step 3: Open file app.php at config/app.php. Add your new provider to the providers array of config/app.php:
+## Step 3: Open file `app.php` at `config/app.php`. Add your new provider to the providers array of `config/app.php`:
 ``` php
 'providers' => [
     // ...
@@ -22,5 +22,17 @@ Package send mail for back-end.
 	],
 ```
 
-## Step 4: Make sure this command was run: 
+## Step 4: Open file `.env`. Change to:
+```php
+	MAIL_DRIVER=smtp
+	MAIL_HOST=smtp.gmail.com
+	MAIL_PORT=587
+	MAIL_USERNAME=your_google_email
+	MAIL_PASSWORD=your_password
+	MAIL_ENCRYPTION=tls
+```
+
+## Step 5: Sign in google mail and go to url: `https://www.google.com/settings/security/lesssecureapps`. Then, active it.
+
+## Step 6: Make sure this command was run: 
 `php artisan vendor:publish --tag=public --force`
