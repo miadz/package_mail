@@ -34,7 +34,6 @@ class MailAdminValidator extends AbstractValidator
         return $flag;
     }
 
-
     public function messages() {
         self::$messages = [
             'required' => ':attribute '.trans('mail::mail_admin.required')
@@ -50,7 +49,8 @@ class MailAdminValidator extends AbstractValidator
 
         $mail_name = @$input['mail_name'];
 
-        if ((strlen($mail_name) < $min_lenght)  || ((strlen($mail_name) > $max_lenght))) {
+        if ((strlen($mail_name) < $min_lenght)  
+            || (strlen($mail_name) > $max_lenght)) {
             $this->errors->add('name_unvalid_length', trans('name_unvalid_length', ['NAME_MIN_LENGTH' => $min_lenght, 'NAME_MAX_LENGTH' => $max_lenght]));
             $flag = TRUE;
         }

@@ -78,7 +78,7 @@ class MailAdminController extends Controller {
 
         $data = array();
 
-        if (!$this->obj_validator->validate($input)) {
+        if ($this->obj_validator->validate($input)) {
 
             $data['errors'] = $this->obj_validator->getErrors();
 
@@ -106,7 +106,8 @@ class MailAdminController extends Controller {
                     \Session::flash('message', trans('mail::mail_admin.message_update_unsuccessfully'));
                 }
             } else {
-
+                // var_dump($input);
+                // die();
                 $mail = $this->obj_mail->add_mail($input);
 
                 if (!empty($mail)) {

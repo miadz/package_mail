@@ -4,6 +4,8 @@
 
      <?php $mail_history_content = $request->get('mail_titlename') ? $request->get('mail_history_content') : @$mail_history->mail_history_content ?>
 
+     <?php $mail_history_attach = $request->get('mail_titlename') ? $request->get('mail_history_attach') : @$mail_history->mail_history_attach ?>
+
     <!-- MAIL ADDRESS -->
     {!! Form::label(trans('mail::mail_admin.mail_name').':') !!}
     {!! Form::text('mail_address', null, [
@@ -28,6 +30,12 @@
             'placeholder' => trans('mail::mail_admin.mail_content'))
         ) !!}
     <!-- /END CONTENT -->
+
+    @if($mail_history_attach != null)
+        {!! Form::label(trans('mail::mail_admin.mail_attached_file').':') !!}
+        <iframe src="{{ public_path().'/'.$mail_history_attach }}" frameborder="0" style="width:100%;min-height:640px;"></iframe>
+        <?php var_dump($mail_history_attach); ?>
+    @endif
 
     <!-- ATTACH FILE -->
     {!! Form::label(trans('mail::mail_admin.mail_attach_file').':') !!}

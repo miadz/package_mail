@@ -55,7 +55,9 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                             <!-- MAIL NAME TEXT-->
                             @include('mail::mail_history.elements.mail_compose', [
                                 'subject' => 'mail_history_subject',
-                                'content' => 'mail_history_content'])
+                                'content' => 'mail_history_content',
+                                'attach' => 'mail_history_attach'
+                            ])
                             <!-- /END MAIL NAME TEXT -->
 
                             {!! Form::hidden('id',@$mail_history->mail_history_id) !!}
@@ -65,11 +67,11 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                                class="btn btn-danger pull-right margin-left-5 delete">
                                 {!! trans('mail::mail_admin.cancel') !!}
                             </a>
-                            <!-- CANCEL BUTTON -->
+                            <!-- /END CANCEL BUTTON -->
 
                             <!-- SEND BUTTON -->
                             {!! Form::submit(trans('mail::mail_admin.send'), array("class"=>"btn btn-info pull-right ")) !!}
-                            <!-- /SEND BUTTON -->
+                            <!-- /END SEND BUTTON -->
 
                             {!! Form::close() !!}
                         </div>

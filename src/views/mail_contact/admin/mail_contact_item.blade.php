@@ -80,7 +80,7 @@
                 <!-- /END DELETE BUTTON -->
 
                 <!-- REPLY MAIL BUTTON -->
-                <a href="{!! URL::route('admin_mail.mail_contact_reply',['id' =>  $mail->mail_contact_id, '_token' => csrf_token()]) !!}" class="margin-left-5 delete"><i class="fa fa-reply fa-2x"></i></a>
+                <a href="{!! URL::route('admin_mail.mail_contact_reply',['id' =>  $mail->mail_contact_id, '_token' => csrf_token()]) !!}" class="margin-left-5"><i class="fa fa-reply fa-2x"></i></a>
                 <!-- /END REPLY MAIL BUTTON -->
 
                 <span class="clearfix"></span>
