@@ -78,10 +78,9 @@ class MailAdminController extends Controller {
 
         $data = array();
 
-        if ($this->obj_validator->validate($input)) {
+        if (!$this->obj_validator->validate($input)) {
 
             $data['errors'] = $this->obj_validator->getErrors();
-
             if (!empty($mail_id) && is_int($mail_id)) {
 
                 $mail = $this->obj_mail->find($mail_id);

@@ -14,7 +14,6 @@ class MailAdminValidator extends AbstractValidator
 
     protected static $messages = [];
 
-
     public function __construct()
     {
         Event::listen('validating', function($input)
@@ -36,23 +35,28 @@ class MailAdminValidator extends AbstractValidator
 
     public function messages() {
         self::$messages = [
-            'required' => ':attribute '.trans('mail::mail_admin.required')
+            'required' => ':attribute '.trans('mail::mail_admin.required'),
         ];
     }
 
     public function isValidTitle($input) {
 
-        $flag = FALSE;
+        $flag = TRUE;
 
         $min_lenght = config('mail_admin.name_min_length');
         $max_lenght = config('mail_admin.name_max_length');
 
         $mail_name = @$input['mail_name'];
 
-        if ((strlen($mail_name) < $min_lenght)  
-            || (strlen($mail_name) > $max_lenght)) {
-            $this->errors->add('name_unvalid_length', trans('name_unvalid_length', ['NAME_MIN_LENGTH' => $min_lenght, 'NAME_MAX_LENGTH' => $max_lenght]));
-            $flag = TRUE;
+        if (!filter_var($mail_name, FILTER_VALIDATE_EMAIL)) {
+            $this->errors->add('name_unvalid_length', trans('mail::mail_admin.mail_address_unvalid'));
+            $flag = FALSE;
+
+            // if ((strlen($mail_name) < $min_lenght)  
+            //     || (strlen($mail_name) > $max_lenght)) {
+            //     $this->errors->add('name_unvalid_length', trans('mail::mail_admin.name_unvalid_length', ['NAME_MIN_LENGTH' => $min_lenght, 'NAME_MAX_LENGTH' => $max_lenght]));
+            //     $flag = FALSE;
+            // }
         }
 
         return $flag;

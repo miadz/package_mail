@@ -5,7 +5,10 @@
     {!! Form::label($name, trans('mail::mail_admin.name').':') !!}
 
     <!-- MAIL ADDRESS -->
-    {!! Form::text($name, $mail_name, ['class' => 'form-control', 'placeholder' => trans('mail::mail_admin.name').'']) !!}
+    {!! Form::text($name, $mail_name, [
+    	'class' => 'form-control', 
+    	'autofocus',
+    	'placeholder' => trans('mail::mail_admin.name').'']) !!}
     <!-- /END MAIL ADDRESS -->
 </div>
 <!-- /END MAIL NAME -->

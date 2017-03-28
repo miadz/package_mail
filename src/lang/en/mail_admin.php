@@ -64,6 +64,8 @@ return [
      * Validator message
      */
     'title_unvalid_length' => 'Unvalid lenght title. Allow from: <b>:TITLE_MIN_LENGTH</b> to <b>:TITLE_MAX_LENGTH</b>.',
+    'name_unvalid_length' => 'Unvalid lenght name',
+    'mail_address_unvalid' => 'Unvalid email address',
 
     /**
      * Validator message
