@@ -46,34 +46,42 @@ class MailAdminValidator extends AbstractValidator
         $max_lenght = config('mail_admin.name_max_length');
         $subject_min_length = config('mail_admin.subject_min_length');
         $subject_max_length = config('mail_admin.subject_max_length');
-        $attach_max_size = config('mail_admin.attach_max_size');
 
         $mail_name = @$input['mail_name'];
         $subject = @$input['mail_subject'];
         $file = @$input['fileToUpload'];
         $file_size = TRUE;
 
+        $arr_mail = explode(' ', $mail_name);
+        $count_mail = count($arr_mail);
+
         if($file != null){
             if ($file->isValid()){
                 if($file->getSize() > $file->getMaxFilesize())
                     $file_size = FALSE;
-                // var_dump($file->getSize());
             }
             elseif ($file->getError()) {
                 $file_size = FALSE;
             }
         }
 
-        if (!filter_var($mail_name, FILTER_VALIDATE_EMAIL)) {
-            $this->errors->add('mail_address_unvalid', trans('mail::mail_admin.mail_address_unvalid'));
-            $flag = FALSE;
-
-            // if ((strlen($mail_name) < $min_lenght)  
-            //     || (strlen($mail_name) > $max_lenght)) {
-            //     $this->errors->add('name_unvalid_length', trans('mail::mail_admin.name_unvalid_length', ['NAME_MIN_LENGTH' => $min_lenght, 'NAME_MAX_LENGTH' => $max_lenght]));
-            //     $flag = FALSE;
-            // }
+        if($count_mail != 1){
+            foreach ($arr_mail as $key => $value) {
+                if($value != null){
+                    if (!filter_var(trim($value), FILTER_VALIDATE_EMAIL)) {
+                        $this->errors->add('mail_address_unvalid', trans('mail::mail_admin.mail_address_unvalid'));
+                        $flag = FALSE;
+                    }
+                }
+            }
         }
+        else {
+            if (!filter_var(trim($mail_name), FILTER_VALIDATE_EMAIL)) {
+                $this->errors->add('mail_address_unvalid', trans('mail::mail_admin.mail_address_unvalid'));
+                $flag = FALSE;
+            }
+        }
+        
         if ((strlen($subject) < $subject_min_length)
             || (strlen($subject) > $subject_max_length)) {
             $this->errors->add('subject_unvalid_length', trans('mail::mail_admin.subject_unvalid_length', [

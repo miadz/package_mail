@@ -39,7 +39,6 @@ class MailSendController extends Controller {
         $mail_history = NULL;
         $input = $request->all();
         $mail_id = (int) $request->get('id');
-        $mail_address = (string) $request->get('mail_address');
         $mail_name = (string) $request->get('mail_name');
         $count_mail = 0;
 
@@ -61,7 +60,7 @@ class MailSendController extends Controller {
             }
         }
         else{
-            $arr_mail = explode(',', $mail_name);
+            $arr_mail = explode(' ', $mail_name);
             $count_mail = count($arr_mail);
             $file = Input::file('fileToUpload');
             $file_path = null;
@@ -83,8 +82,6 @@ class MailSendController extends Controller {
                     $mail = $this->obj_mail->find($mail_id);
                 }
                 $data['address'] = $mail->mail_name;
-                // var_dump($data);
-                // die();
                 $this->sendding($data);
 
                 $request->request->add([
@@ -107,12 +104,12 @@ class MailSendController extends Controller {
                     $this->sendding($data);
                 }
                 else{
-                    die();
                     foreach ($arr_mail as $key => $value) {
-                        $data['address'] = trim($value);
-                        var_dump($data);
-                        //$this->sendding($data);
-                        //sleep(5);
+                        if($value != null){
+                            $data['address'] = trim($value);
+                            $this->sendding($data);
+                            sleep(5);
+                        }
                     }
                 }
 
