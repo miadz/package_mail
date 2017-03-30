@@ -6,7 +6,7 @@ return [
     "package_description" => 'mail package is for initial',
     "order" => '#',
     "operations" => 'Operations',
-    'mail_category_name_label' => 'mail category name:',
+    'mail_category_name_label' => 'Mail category name:',
     'mail_id' => 'Mail ID',
     'mail_name' => 'Mail Address',
     'admin_mail' => 'Admin Mail',
@@ -37,7 +37,7 @@ return [
     'search' => 'Search',
     'mail_name_label' => 'Mail name:',
     'mail_name_placeholder' => 'Mail name',
-    'mail_category_name'=> 'mail category name',
+    'mail_category_name'=> 'Mail category name',
     'mail_subject' => 'Subject',
     'mail_content' => 'Content',
     'mail_attach_file' => 'Attach file',
@@ -66,6 +66,8 @@ return [
     'title_unvalid_length' => 'Unvalid lenght title. Allow from: <b>:TITLE_MIN_LENGTH</b> to <b>:TITLE_MAX_LENGTH</b>.',
     'name_unvalid_length' => 'Unvalid lenght name',
     'mail_address_unvalid' => 'Unvalid email address',
+    'subject_unvalid_length' => 'Unvalid subject',
+    'attach_unvalid' => 'Unvalid attach file',
 
     /**
      * Validator message

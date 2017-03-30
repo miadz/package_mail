@@ -22,9 +22,15 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                     </div>
                 @endif
 
-                @if($errors->has('name_unvalid_length') )
+                @if($errors->has('subject_unvalid_length') )
                     <div class="alert alert-danger">
-                        {!! $errors->first('name_unvalid_length') !!}
+                        {!! $errors->first('subject_unvalid_length') !!}
+                    </div>
+                @endif
+
+                @if($errors->has('attach_unvalid') )
+                    <div class="alert alert-danger">
+                        {!! $errors->first('attach_unvalid') !!}
                     </div>
                 @endif
                 <!--/END ERROR-->
@@ -38,7 +44,6 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                     </div>
                 @endif
                 <!--/END MESSAGE-->
-
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12 col-xs-12">
@@ -49,7 +54,7 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                                 'method' => 'post'])  !!}
 
                             <!-- MAIL NAME TEXT-->
-                            @include('mail::mail.elements.mail', ['name' => 'mail_name'])
+                            @include('mail::mail_send.elements.mail_prepare', ['name' => 'mail_name'])
                             <!-- /END MAIL NAME TEXT -->
                             {!! Form::hidden('id',@$mail->mail_id) !!}
 

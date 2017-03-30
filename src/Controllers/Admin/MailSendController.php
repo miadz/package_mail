@@ -9,6 +9,10 @@ use Foostart\Mail\Models\Mails;
 use Foostart\Mail\Models\MailsHistories;
 use Mail;
 use Illuminate\Support\Facades\Input;
+/**
+ * Validators
+ */
+use Foostart\Mail\Validators\MailAdminValidator;
 
 class MailSendController extends Controller {
 	public $data_view = array();
@@ -30,76 +34,101 @@ class MailSendController extends Controller {
         Wrong when send. Go to https://www.google.com/settings/security/lesssecureapps and active it.
     */
     public function mailSend(Request $request){
+        $this->obj_validator = new MailAdminValidator();
         $mail = NULL;
         $mail_history = NULL;
         $input = $request->all();
         $mail_id = (int) $request->get('id');
         $mail_address = (string) $request->get('mail_address');
+        $mail_name = (string) $request->get('mail_name');
         $count_mail = 0;
-        
-        $arr_mail = explode(',', $mail_address);
-        $count_mail = count($arr_mail);
 
-        $file = Input::file('fileToUpload');
-        $file_path = null;
-
-        if($file != null){
-            $file_path = $this->attachFile($file);
-        }
-
-        $data = [
-            'confirm' => 'confirm',
-            'author' => 'ADMIN PACKAGE',
-            'subject' => $input['mail_subject'],
-            'contents' => $input['mail_content'],
-            'file_path' => $file_path
-            ];
-
-        if($mail_address == null){
-            if (!empty($mail_id) && (is_int($mail_id))) {
+        if (!$this->obj_validator->validate($input)) {
+            $data['errors'] = $this->obj_validator->getErrors();
+            if (!empty($mail_id) && is_int($mail_id)) {
                 $mail = $this->obj_mail->find($mail_id);
             }
-            $data['address'] = $mail->mail_name;
-            $this->sendding($data);
+            $this->data_view = array_merge($this->data_view, array(
+                'mail' => $mail,
+                'request' => $request
+            ), $data);
 
-            $request->request->add([
-                'mail_history_name' => $mail->mail_name,
-                'mail_history_subject' => $input['mail_subject'],
-                'mail_history_content' => $input['mail_content'],
-                'mail_history_attach' => $file_path
-            ]);
-            $input = $request->all();
-            $mail_history = $this->obj_mail_history->add_mail_history($input);
-            
-            //Message
-            \Session::flash('message', trans('mail::mail_admin.message_send_mail_successfully'));
-            return Redirect::route("admin_mail");
+            if(!$request->has('compose')){
+                return view('mail::mail_send.admin.mail_send', $this->data_view);
+            }
+            else {
+                return view('mail::mail_send.admin.mail_compose', $this->data_view);
+            }
         }
-        else {
-            if($count_mail == 1){
-                $data['address'] = $input['mail_address'];
-                $this->sendding($data);
-            }
-            else{
-                foreach ($arr_mail as $key => $value) {
-                    $data['address'] = $value;
-                    $this->sendding($data);
-                    sleep(5);
-                }
+        else{
+            $arr_mail = explode(',', $mail_name);
+            $count_mail = count($arr_mail);
+            $file = Input::file('fileToUpload');
+            $file_path = null;
+
+            if($file != null){
+                $file_path = $this->attachFile($file);
             }
 
-            $request->request->add([
-                'mail_history_name' => $input['mail_address'],
-                'mail_history_subject' => $input['mail_subject'],
-                'mail_history_content' => $input['mail_content'],
-                'mail_history_attach' => $file_path
-            ]);
-            $input = $request->all();
-            $mail_history = $this->obj_mail_history->add_mail_history($input);
-            
-            //Message
-            \Session::flash('message', trans('mail::mail_admin.message_send_mail_successfully'));
-            return Redirect::route("admin_mail");
+            $data = [
+                'confirm' => 'confirm',
+                'author' => 'ADMIN PACKAGE',
+                'subject' => $input['mail_subject'],
+                'contents' => $input['mail_content'],
+                'file_path' => $file_path
+                ];
+
+            if(!$request->has('compose')){
+                if (!empty($mail_id) && (is_int($mail_id))) {
+                    $mail = $this->obj_mail->find($mail_id);
+                }
+                $data['address'] = $mail->mail_name;
+                // var_dump($data);
+                // die();
+                $this->sendding($data);
+
+                $request->request->add([
+                    'mail_history_name' => $mail->mail_name,
+                    'mail_history_subject' => $input['mail_subject'],
+                    'mail_history_content' => $input['mail_content'],
+                    'mail_history_attach' => $file_path
+                ]);
+
+                $input = $request->all();
+                $mail_history = $this->obj_mail_history->add_mail_history($input);
+                
+                //Message
+                \Session::flash('message', trans('mail::mail_admin.message_send_mail_successfully'));
+                return Redirect::route("admin_mail");
+            }
+            else {
+                if($count_mail == 1){
+                    $data['address'] = $input['mail_name'];
+                    $this->sendding($data);
+                }
+                else{
+                    die();
+                    foreach ($arr_mail as $key => $value) {
+                        $data['address'] = trim($value);
+                        var_dump($data);
+                        //$this->sendding($data);
+                        //sleep(5);
+                    }
+                }
+
+                $request->request->add([
+                    'mail_history_name' => $input['mail_name'],
+                    'mail_history_subject' => $input['mail_subject'],
+                    'mail_history_content' => $input['mail_content'],
+                    'mail_history_attach' => $file_path
+                ]);
+                $input = $request->all();
+                $mail_history = $this->obj_mail_history->add_mail_history($input);
+                
+                //Message
+                \Session::flash('message', trans('mail::mail_admin.message_send_mail_successfully'));
+                return Redirect::route("admin_mail");
+            }
         }
     }
 

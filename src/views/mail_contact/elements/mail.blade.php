@@ -9,7 +9,7 @@
     <!-- MAIL ADDRESS -->
     {!! Form::label('Mail to: ') !!}
     {!! Form::label($name, $mail_contact_name, trans('mail::mail_admin.name').':') !!}
-    {!! Form::hidden('mail_address', $mail_contact_name) !!}
+    {!! Form::hidden('mail_name', $mail_contact_name) !!}
     <!-- /END MAIL ADDRESS -->
     <br>
     <!-- SUBJECT -->

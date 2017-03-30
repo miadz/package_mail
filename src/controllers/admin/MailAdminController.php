@@ -81,6 +81,8 @@ class MailAdminController extends Controller {
         if (!$this->obj_validator->validate($input)) {
 
             $data['errors'] = $this->obj_validator->getErrors();
+            // var_dump($data['errors']);
+            // die();
             if (!empty($mail_id) && is_int($mail_id)) {
 
                 $mail = $this->obj_mail->find($mail_id);
@@ -177,8 +179,7 @@ class MailAdminController extends Controller {
             'mail' => $mail,
             'request' => $request
         ));
-
-        return view('mail::mail.admin.mail_send', $this->data_view);
+        return view('mail::mail_send.admin.mail_send', $this->data_view);
     }
 
     /**
@@ -189,7 +190,7 @@ class MailAdminController extends Controller {
         $this->data_view = array_merge($this->data_view, array(
             'request' => $request
         ));
-        return view('mail::mail.admin.mail_compose', $this->data_view);
+        return view('mail::mail_send.admin.mail_compose', $this->data_view);
     }
 
     /*===============================================================================

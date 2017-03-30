@@ -1,7 +1,7 @@
 <!-- MAIL NAME -->
 <div class="form-group">
     <?php $mail_name = $request->get('mail_titlename') ? $request->get('mail_name') : @$mail->mail_name ?>
-
+    
     {!! Form::label($name, trans('mail::mail_admin.name').':') !!}
 
     <!-- MAIL ADDRESS -->
