@@ -75,11 +75,13 @@ class MailHistoryAdminController extends Controller {
         $mail_history = $this->obj_mail_history->find($id);
         $dataName = $mail_history->mail_history_attach;
         $checkFile = false;
+        $checkSameAttach = $this->obj_mail_history->check_same_attach($mail_history);
 
         if($dataName != null) {
             $checkFile = file_exists(public_path() . '/' . $dataName);
         }
-        if ($checkFile){
+
+        if ($checkFile && !$checkSameAttach){
             unlink(public_path() . '/' . $dataName);
         }
     }

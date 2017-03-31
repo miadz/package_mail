@@ -49,4 +49,26 @@ class MailsHistories extends Model {
         ]);
         return $mail_history;
     }
+
+    /**
+     *
+     * @param type $input
+     * @return type
+     */
+    public function check_same_attach($params) {
+        $mail_history = null;
+        $check = false;
+        $eloquent = self::orderBy('mail_history_id');
+
+        if($params['mail_history_attach'] != null){
+            $mail_history = $eloquent
+                ->where('mail_history_attach', 'like', 
+                    '%'. $params['mail_history_attach'].'%')
+                ->get();
+        }
+        
+        if(count($mail_history) > 1) $check = true;
+
+        return $check;
+    }
 }

@@ -22,9 +22,15 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                     </div>
                 @endif
 
-                @if($errors->has('name_unvalid_length') )
+                @if($errors->has('subject_unvalid_length') )
                     <div class="alert alert-danger">
-                        {!! $errors->first('name_unvalid_length') !!}
+                        {!! $errors->first('subject_unvalid_length') !!}
+                    </div>
+                @endif
+
+                @if($errors->has('attach_unvalid') )
+                    <div class="alert alert-danger">
+                        {!! $errors->first('attach_unvalid') !!}
                     </div>
                 @endif
                 <!-- /END ERROR -->
@@ -50,7 +56,7 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
 
 
                             <!-- MAIL NAME TEXT-->
-                            @include('mail::mail_contact.elements.mail', ['name' => 'mail_contact_name'])
+                            @include('mail::mail_contact.elements.mail_reply', ['name' => 'mail_contact_name'])
                             <!-- /END MAIL NAME TEXT -->
                             {!! Form::hidden('id',@$mail_contact->mail_contact_id) !!}
 

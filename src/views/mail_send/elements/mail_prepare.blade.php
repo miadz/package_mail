@@ -6,6 +6,7 @@
     {!! Form::label('Mail to: ') !!}
     {!! Form::label($name, $mail_name, trans('mail::mail_admin.name').':') !!}
     {!! Form::text('mail_name', $mail_name, array('hidden')) !!}
+    {!! Form::hidden('prepare', 'prepare') !!}
     <!-- /END MAIL TO -->
     <br>
     <!-- SUBJECT -->

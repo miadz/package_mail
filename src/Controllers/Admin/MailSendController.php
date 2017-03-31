@@ -6,6 +6,7 @@ use URL;
 use Route,
     Redirect;
 use Foostart\Mail\Models\Mails;
+use Foostart\Mail\Models\MailsContacts;
 use Foostart\Mail\Models\MailsHistories;
 use Mail;
 use Illuminate\Support\Facades\Input;
@@ -18,11 +19,13 @@ class MailSendController extends Controller {
 	public $data_view = array();
 
     private $obj_mail = NULL;
+    private $obj_mail_contact = NULL;
     private $obj_mail_history = NULL;
     private $obj_validator = NULL;
 
     public function __construct() {
         $this->obj_mail = new Mails();
+        $this->obj_mail_contact = new MailsContacts();
         $this->obj_mail_history = new MailsHistories();
     }
 
@@ -36,6 +39,7 @@ class MailSendController extends Controller {
     public function mailSend(Request $request){
         $this->obj_validator = new MailAdminValidator();
         $mail = NULL;
+        $mail_contact = NULL;
         $mail_history = NULL;
         $input = $request->all();
         $mail_id = (int) $request->get('id');
@@ -46,17 +50,31 @@ class MailSendController extends Controller {
             $data['errors'] = $this->obj_validator->getErrors();
             if (!empty($mail_id) && is_int($mail_id)) {
                 $mail = $this->obj_mail->find($mail_id);
+                $mail_contact = $this->obj_mail_contact->find($mail_id);
+                $mail_history = $this->obj_mail_history->find($mail_id);
             }
             $this->data_view = array_merge($this->data_view, array(
                 'mail' => $mail,
+                'mail_contact' => $mail_contact,
+                'mail_history' => $mail_history,
                 'request' => $request
             ), $data);
 
-            if(!$request->has('compose')){
-                return view('mail::mail_send.admin.mail_send', $this->data_view);
+            if ($request->has('prepare')){
+                return view('mail::mail_send.admin.mail_send', 
+                    $this->data_view);
+            }
+            elseif ($request->has('compose')) {
+                return view('mail::mail_send.admin.mail_compose', 
+                    $this->data_view);
+            }
+            elseif ($request->has('reply')) {
+                return view('mail::mail_contact.admin.mail_contact_reply', 
+                    $this->data_view);
             }
             else {
-                return view('mail::mail_send.admin.mail_compose', $this->data_view);
+                return view('mail::mail_history.admin.mail_history_forward', 
+                    $this->data_view);
             }
         }
         else{
@@ -68,6 +86,9 @@ class MailSendController extends Controller {
             if($file != null){
                 $file_path = $this->attachFile($file);
             }
+            elseif(!empty($input['mail_attach'])) {
+                $file_path = $input['mail_attach'];
+            }
 
             $data = [
                 'confirm' => 'confirm',
@@ -77,15 +98,23 @@ class MailSendController extends Controller {
                 'file_path' => $file_path
                 ];
 
-            if(!$request->has('compose')){
+            if($request->has('prepare') || $request->has('reply')){
                 if (!empty($mail_id) && (is_int($mail_id))) {
-                    $mail = $this->obj_mail->find($mail_id);
+                    if($request->has('prepare'))
+                        $mail = $this->obj_mail->find($mail_id);
+                    else
+                        $mail_contact = $this->obj_mail_contact->find($mail_id);
                 }
-                $data['address'] = $mail->mail_name;
+
+                $data['address'] = $mail != null
+                    ? $mail->mail_name
+                    : $mail_contact->mail_contact_name;
+
+                // Sendding mail function
                 $this->sendding($data);
 
                 $request->request->add([
-                    'mail_history_name' => $mail->mail_name,
+                    'mail_history_name' => $data['address'],
                     'mail_history_subject' => $input['mail_subject'],
                     'mail_history_content' => $input['mail_content'],
                     'mail_history_attach' => $file_path
@@ -112,7 +141,7 @@ class MailSendController extends Controller {
                         }
                     }
                 }
-
+                
                 $request->request->add([
                     'mail_history_name' => $input['mail_name'],
                     'mail_history_subject' => $input['mail_subject'],
@@ -128,6 +157,15 @@ class MailSendController extends Controller {
             }
         }
     }
+
+    /**
+     *
+     * @return type
+     */
+    // public function saveHistory(Request $request){
+    //     $input = $request->all();
+    //     var_dump($input);
+    // }
 
     /**
      *

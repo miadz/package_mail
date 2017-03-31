@@ -69,7 +69,7 @@
 
             <!-- MAIL CONTENT -->
             <td>
-                {!! $mail->mail_contact_content !!}
+                {!! substr($mail->mail_contact_content, 0, 80) !!}
             </td>
             <!-- /END MAIL CONTENT -->
 

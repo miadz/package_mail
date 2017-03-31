@@ -15,7 +15,7 @@ return [
      */
     'compose' => 'Compose',
     'page_list' => 'List of mails',
-    'page_add' => 'Add new mail',
+    'page_add' => 'Add new mail address',
     'mail_sent' => 'Sent mail',
     'page_edit' => 'Update mail item',
     'page_search' => 'Mail page search',

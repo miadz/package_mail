@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2017 at 09:22 AM
+-- Generation Time: Mar 31, 2017 at 09:17 AM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -44,9 +44,7 @@ INSERT INTO `mails` (`mail_id`, `mail_name`) VALUES
 (8, 'ptnhuan@gmail.com'),
 (11, 'nguyenanhhoanld.thienhaxaxoi@gmail.com'),
 (12, 'bibiambibiam@gmail.com'),
-(13, 'thanhhuy.25101996@gmail.com'),
-(37, 'test@gmail.com'),
-(30, 'check@gmail.com');
+(13, 'thanhhuy.25101996@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -59,7 +57,7 @@ CREATE TABLE `mails_contacts` (
   `mail_contact_id` int(11) NOT NULL,
   `mail_contact_name` varchar(255) CHARACTER SET utf8 NOT NULL,
   `mail_contact_subject` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `mail_contact_content` varchar(255) CHARACTER SET utf8 NOT NULL
+  `mail_contact_content` text CHARACTER SET utf8 NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -70,9 +68,7 @@ INSERT INTO `mails_contacts` (`mail_contact_id`, `mail_contact_name`, `mail_cont
 (1, 'user01@gmail.com', 'Refund', 'Error product.'),
 (6, 'grimreaperld@gmail.com', 'Error', 'Refund my money'),
 (5, 'user02@gmail.com', 'Test01', 'Check01'),
-(7, 'grimreaperld@gmail.com', 'Test001', 'Check001'),
-(8, 'grimreaperld@gmail.com', 'Test002', 'Check002'),
-(9, 'grimreaperld@gmail.com', 'Test003', 'Check003');
+(12, 'grimreaperld@gmail.com', 'Contact02', 'Laravel provides an easy method of protecting your application from cross-site request forgeries. First, a random token is placed in your user\'s session. If you use the Form::open method with POST,  PUT or DELETE the CSRF token will be added to your forms as a hidden field automatically. ');
 
 -- --------------------------------------------------------
 
@@ -94,11 +90,9 @@ CREATE TABLE `mails_histories` (
 --
 
 INSERT INTO `mails_histories` (`mail_history_id`, `mail_history_name`, `mail_history_subject`, `mail_history_content`, `mail_history_attach`) VALUES
-(68, 'grimreaperld@gmail.com', 'Test send file 51', 'Check51 - include file.', 'upload/832PackageStandart.pdf'),
-(67, 'grimreaperld@gmail.com', 'Test send file 50', 'Check50 - None file.', NULL),
-(66, 'grimreaperld@gmail.com    nguyenanhhoanld.thienhaxaxoi@gmail.com', 'Test send file 49', 'Check49 - send multiple mail.', 'upload/997Annie Build Guide - The Professional Mid Carry.pdf'),
-(64, 'grimreaperld@gmail.com', 'Test send file 47', 'Check47 - None file.', NULL),
-(65, 'grimreaperld@gmail.com', 'Test send file 48', 'Check 48 - include file.', 'upload/5864088342-infinity-wallpaper.jpg');
+(79, 'grimreaperld@gmail.com', 'Test send file 62', 'Check62', 'upload/310Capture2.PNG'),
+(72, 'grimreaperld@gmail.com', 'Test send file 55', 'Check55', NULL),
+(76, 'grimreaperld@gmail.com', 'Test send file 59', 'Check59', 'upload/5214088342-infinity-wallpaper.jpg');
 
 --
 -- Indexes for dumped tables
@@ -136,12 +130,12 @@ ALTER TABLE `mails`
 -- AUTO_INCREMENT for table `mails_contacts`
 --
 ALTER TABLE `mails_contacts`
-  MODIFY `mail_contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `mail_contact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `mails_histories`
 --
 ALTER TABLE `mails_histories`
-  MODIFY `mail_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `mail_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

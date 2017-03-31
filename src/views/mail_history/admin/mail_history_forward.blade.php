@@ -22,9 +22,21 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                     </div>
                 @endif
 
-                @if($errors->has('name_unvalid_length') )
+                @if($errors->has('mail_address_unvalid') )
                     <div class="alert alert-danger">
-                        {!! $errors->first('name_unvalid_length') !!}
+                        {!! $errors->first('mail_address_unvalid') !!}
+                    </div>
+                @endif
+
+                @if($errors->has('subject_unvalid_length') )
+                    <div class="alert alert-danger">
+                        {!! $errors->first('subject_unvalid_length') !!}
+                    </div>
+                @endif
+
+                @if($errors->has('attach_unvalid') )
+                    <div class="alert alert-danger">
+                        {!! $errors->first('attach_unvalid') !!}
                     </div>
                 @endif
                 <!-- /END ERROR -->
@@ -46,18 +58,13 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                             {!! Form::open([
                                 'route'=>[
                                     'admin_mail.send', 
-                                    'id' => @$mail->mail_id],  
+                                    'id' => @$mail_history->mail_history_id],  
                                 'files'=>true, 
                                 'method' => 'post'])  
                             !!}
 
-
                             <!-- MAIL NAME TEXT-->
-                            @include('mail::mail_history.elements.mail_compose', [
-                                'subject' => 'mail_history_subject',
-                                'content' => 'mail_history_content',
-                                'attach' => 'mail_history_attach'
-                            ])
+                            @include('mail::mail_history.elements.mail_forward')
                             <!-- /END MAIL NAME TEXT -->
 
                             {!! Form::hidden('id',@$mail_history->mail_history_id) !!}
