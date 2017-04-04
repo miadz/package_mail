@@ -41,18 +41,26 @@ class MailSendController extends Controller {
         $mail = NULL;
         $mail_contact = NULL;
         $mail_history = NULL;
-        $input = $request->all();
         $mail_id = (int) $request->get('id');
         $mail_name = (string) $request->get('mail_name');
         $count_mail = 0;
 
+        // Check connect internet
+        if(!$this->pingAddress('8.8.8.8')){
+            $request->request->add(['internet_interrupt' => 'Not internet']);
+        }
+
+        $input = $request->all();
+
         if (!$this->obj_validator->validate($input)) {
             $data['errors'] = $this->obj_validator->getErrors();
+            
             if (!empty($mail_id) && is_int($mail_id)) {
                 $mail = $this->obj_mail->find($mail_id);
                 $mail_contact = $this->obj_mail_contact->find($mail_id);
                 $mail_history = $this->obj_mail_history->find($mail_id);
             }
+
             $this->data_view = array_merge($this->data_view, array(
                 'mail' => $mail,
                 'mail_contact' => $mail_contact,
@@ -141,7 +149,7 @@ class MailSendController extends Controller {
                         }
                     }
                 }
-                
+
                 $request->request->add([
                     'mail_history_name' => $input['mail_name'],
                     'mail_history_subject' => $input['mail_subject'],
@@ -156,6 +164,40 @@ class MailSendController extends Controller {
                 return Redirect::route("admin_mail");
             }
         }
+    }
+
+    /**
+     *  Check internet connection
+     * @return true or false
+     */
+    public function pingAddress($ip) {
+        $max = 200;
+        $avg = 100;
+        $getAvg = 200;
+        $getMax = 100;
+
+        $pingresult = exec("ping  -n 3 $ip", $outcome, $status);
+
+        $arr = explode(',', $pingresult);
+
+        foreach ($arr as $key => $value) {
+            // Has internet
+            if(strpos($value, 'Minimum')){}
+            elseif (strpos($value, 'Maximum')){
+                $getMax = preg_replace('/[^0-9]+/', '', $value);
+            }
+            elseif (strpos($value, 'Average')){
+                $getAvg = preg_replace('/[^0-9]+/', '', $value);
+            }
+            
+            // Not internet
+            else {
+                return false;
+            }
+        }
+
+        if ($getMax > $max || $getAvg > $avg) return false;
+        else return true;
     }
 
     /**

@@ -52,6 +52,7 @@ return [
     'message_delete_successfully' => 'Delete mail item successfully',
     'message_find_failed' => 'No results found.',
     'message_send_mail_successfully' => 'Mail send successfully',
+    'internet_interrupt' => 'Not connect internet',
 
     /**
      * Button

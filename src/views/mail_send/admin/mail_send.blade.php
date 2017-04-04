@@ -33,6 +33,12 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                         {!! $errors->first('attach_unvalid') !!}
                     </div>
                 @endif
+
+                @if($errors->has('internet_interrupt') )
+                    <div class="alert alert-danger">
+                        {!! $errors->first('internet_interrupt') !!}
+                    </div>
+                @endif
                 <!--/END ERROR-->
 
                 <!--MESSAGE-->

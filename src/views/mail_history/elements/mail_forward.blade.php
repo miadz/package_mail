@@ -37,7 +37,7 @@
         {!! Form::text('mail_attach', $mail_history_attach, ['hidden']) !!}
         {!! $mail_history_attach !!}
         <a href="{{ URL::route('admin_mail.mail_history_get_attach', ['id' => $mail_history->mail_history_id]) }}">
-            <i class="fa fa-paperclip" aria-hidden="true"></i>
+            <i class="fa fa-download" aria-hidden="true"></i>
         </a>
         <br>
     @endif

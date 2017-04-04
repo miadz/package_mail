@@ -29,6 +29,7 @@ class MailAdminValidator extends AbstractValidator
         $this->errors = $this->errors?$this->errors:new MessageBag();
 
         $flag = $this->isValidTitle($input)?$flag:FALSE;
+
         return $flag;
     }
 
@@ -50,10 +51,16 @@ class MailAdminValidator extends AbstractValidator
         $mail_name = @$input['mail_name'];
         $subject = @$input['mail_subject'];
         $file = @$input['fileToUpload'];
+        $checkInternet = @$input['internet_interrupt'];
         $file_size = TRUE;
 
         $arr_mail = explode(' ', $mail_name);
         $count_mail = count($arr_mail);
+
+        if($checkInternet != null){
+            $this->errors->add('internet_interrupt', trans('mail::mail_admin.internet_interrupt'));
+            $flag = FALSE;
+        }
 
         if($file != null){
             if ($file->isValid()){
@@ -81,7 +88,7 @@ class MailAdminValidator extends AbstractValidator
                 $flag = FALSE;
             }
         }
-        
+
         if ((strlen($subject) < $subject_min_length)
             || (strlen($subject) > $subject_max_length)) {
             $this->errors->add('subject_unvalid_length', trans('mail::mail_admin.subject_unvalid_length', [
@@ -91,6 +98,7 @@ class MailAdminValidator extends AbstractValidator
             );
             $flag = FALSE;
         }
+        
         if(!$file_size){
             $this->errors->add('attach_unvalid', trans('mail::mail_admin.attach_unvalid')
             );
