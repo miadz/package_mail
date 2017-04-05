@@ -12,7 +12,7 @@ Features:
 * Validator when send mail (include check internet connection)
 
 > You can download package from [pakagist.org](https://packagist.org/packages/source/mail)
-<br />
+
 [![License](https://poser.pugx.org/bogardo/mailgun/license)](https://packagist.org/packages/source/mail)
 
 ## Installation
