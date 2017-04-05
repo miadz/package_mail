@@ -16,12 +16,16 @@ Features:
 [![License](https://poser.pugx.org/bogardo/mailgun/license)](https://packagist.org/packages/source/mail)
 
 ## Installation
-### Step 1: Begin by installing this package through Composer. Run the following from the terminal:
+### Step 1: Install Laravel authentication and ACL admin panel package. `Important`
+```bash
+[Laravel authentication and ACL](https://github.com/intrip/laravel-authentication-acl)
+``` 
+### Step 2: Begin by installing this package through Composer. Run the following from the terminal:
 ```bash
 composer require source/mail
 ```
 
-### Step 2: Open file `composer.json`. <br />
+### Step 3: Open file `composer.json`. <br />
 Add line inside:
 ``` php
 "autoload": {
@@ -31,7 +35,7 @@ Add line inside:
 }
 ```
 
-### Step 3: Open file `app.php` at `config/app.php`. <br />
+### Step 4: Open file `app.php` at `config/app.php`. <br />
 Add your new provider to the providers array of `config/app.php`:
 ``` php
 'providers' => [
@@ -41,13 +45,13 @@ Add your new provider to the providers array of `config/app.php`:
 	],
 ```
 
-### Step 4: Then run the install command: 
+### Step 5: Then run the install command: 
 ```bash
 php artisan authentication:install
 ```
 Note: you need to setup your database configuration before running the command.
 
-### Step 5: Open file `.env`. Change to:
+### Step 6: Open file `.env`. Change to:
 ```php
 	MAIL_DRIVER=smtp
 	MAIL_HOST=smtp.gmail.com
@@ -57,10 +61,10 @@ Note: you need to setup your database configuration before running the command.
 	MAIL_ENCRYPTION=tls
 ```
 
-### Step 6: Sign in google mail and go to url: `https://www.google.com/settings/security/lesssecureapps`. <br />
+### Step 7: Sign in google mail and go to url: `https://www.google.com/settings/security/lesssecureapps`. <br />
 Then, active it.
 
-### Step 7: Make sure this command was run: 
+### Step 8: Make sure this command was run: 
 ```bash
 php artisan vendor:publish --tag=public --force
 ```
