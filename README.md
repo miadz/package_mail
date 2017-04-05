@@ -22,7 +22,9 @@ Package send mail for back-end.
 	],
 ```
 
-## Step 4: Open file `.env`. Change to:
+## Step 4: Then run the install command: `php artisan authentication:install` Note: you need to setup your database configuration before running the command.
+
+## Step 5: Open file `.env`. Change to:
 ```php
 	MAIL_DRIVER=smtp
 	MAIL_HOST=smtp.gmail.com
@@ -32,8 +34,8 @@ Package send mail for back-end.
 	MAIL_ENCRYPTION=tls
 ```
 
-## Step 5: Sign in google mail and go to url: `https://www.google.com/settings/security/lesssecureapps`. Then, active it.
+## Step 6: Sign in google mail and go to url: `https://www.google.com/settings/security/lesssecureapps`. Then, active it.
 
-## Step 6: Make sure this command was run: 
+## Step 7: Make sure this command was run: 
 `php artisan vendor:publish --tag=public --force` and
 `php artisan vendor:publish --tag=config --force`
