@@ -12,7 +12,7 @@ Features:
 * Validator when send mail (include check internet connection)
 
 > You can download package from [pakagist.org](https://packagist.org/packages/source/mail)
-[![License](https://github.com/HoanNguyenIM/package_mail/license-mit.sgv)](https://packagist.org/packages/source/mail)
+[![License](https://github.com/HoanNguyenIM/package_mail/blob/master/license-mit.svg)](https://packagist.org/packages/source/mail)
 
 ## Installation
 ### Step 1: Begin by installing this package through Composer. Run the following from the terminal:
