@@ -1,5 +1,6 @@
-# Mail
-Package send mail for back-end.
+# Mail (for Google Mail)
+Package send mail for back-end. <br />
+You can download package from [pakagist.org](https://packagist.org/packages/source/mail)
 
 ## Installation
 ### Step 1: Begin by installing this package through Composer. Run the following from the terminal:
