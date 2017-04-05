@@ -17,9 +17,9 @@ Features:
 
 ## Installation
 ### Step 1: Install Laravel authentication and ACL admin panel package. `Important`
-```bash
+
 [Laravel authentication and ACL](https://github.com/intrip/laravel-authentication-acl)
-``` 
+
 ### Step 2: Begin by installing this package through Composer. Run the following from the terminal:
 ```bash
 composer require source/mail
