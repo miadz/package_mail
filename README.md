@@ -1,6 +1,17 @@
 # Mail (for Google Mail)
 Package send mail for back-end. <br />
-You can download package from [pakagist.org](https://packagist.org/packages/source/mail)
+
+Features:
+* CRUD mail (mail address, inbox, contact)
+* Contact by customer (mail address add from Front-end)
+* Add mail address in Back-end
+* Compose mail (send single or multiple mail address)
+* Reply & forward
+* Send mail with attached file
+* Mail inbox, sent mail (download attached file from sent mail)
+* Validator when send mail (include check internet connection)
+
+> You can download package from [pakagist.org](https://packagist.org/packages/source/mail)
 
 ## Installation
 ### Step 1: Begin by installing this package through Composer. Run the following from the terminal:
