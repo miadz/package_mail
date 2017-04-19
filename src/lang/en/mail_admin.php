@@ -24,6 +24,7 @@ return [
     'mail_contact' => 'Contact',
     'inbox' => 'Inbox',
     'contact' => 'Contact',
+    'drive' => 'Google Drive',
 
     /**
      * Form

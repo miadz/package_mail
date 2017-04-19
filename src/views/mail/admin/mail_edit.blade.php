@@ -25,9 +25,9 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                     </div>
                 @endif
 
-                @if($errors->has('name_unvalid_length') )
+                @if($errors->has('mail_address_unvalid') )
                     <div class="alert alert-danger">
-                        {!! $errors->first('name_unvalid_length') !!}
+                        {!! $errors->first('mail_address_unvalid') !!}
                     </div>
                 @endif
 
@@ -82,4 +82,8 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
 
     </div>
 </div>
+@stop
+
+@section('footer_scripts')
+    {!! HTML::script('source/js/mail.js') !!}
 @stop

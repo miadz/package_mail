@@ -115,5 +115,12 @@ Route::group(['middleware' => ['web']], function () {
             'as' => 'admin_mail.mail_contact_reply',
             'uses' => 'Foostart\Mail\Controllers\Admin\MailContactAdminController@reply'
         ]);
+        /**
+         * google drive
+         */
+        Route::get('admin/drive', [
+            'as' => 'admin_mail.drive',
+            'uses' => 'Foostart\Mail\Controllers\Admin\GoogleDriveController@index'
+        ]);
     });
 });

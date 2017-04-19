@@ -81,10 +81,8 @@ class MailAdminController extends Controller {
         if (!$this->obj_validator->validate($input)) {
 
             $data['errors'] = $this->obj_validator->getErrors();
-            // var_dump($data['errors']);
-            // die();
-            if (!empty($mail_id) && is_int($mail_id)) {
 
+            if (!empty($mail_id) && is_int($mail_id)) {
                 $mail = $this->obj_mail->find($mail_id);
             }
 
@@ -107,8 +105,6 @@ class MailAdminController extends Controller {
                     \Session::flash('message', trans('mail::mail_admin.message_update_unsuccessfully'));
                 }
             } else {
-                // var_dump($input);
-                // die();
                 $mail = $this->obj_mail->add_mail($input);
 
                 if (!empty($mail)) {

@@ -40,7 +40,7 @@ class MailAdminValidator extends AbstractValidator
     }
 
     public function isValidTitle($input) {
-
+        
         $flag = TRUE;
 
         $min_lenght = config('mail_admin.name_min_length');
@@ -88,15 +88,16 @@ class MailAdminValidator extends AbstractValidator
                 $flag = FALSE;
             }
         }
-
-        if ((strlen($subject) < $subject_min_length)
-            || (strlen($subject) > $subject_max_length)) {
-            $this->errors->add('subject_unvalid_length', trans('mail::mail_admin.subject_unvalid_length', [
-                    'SUBJECT_MIN_LENGTH' => $subject_min_length, 
-                    'SUBJECT_MAX_LENGTH' => $subject_max_length
-                ])
-            );
-            $flag = FALSE;
+        if ($subject != NULL){
+            if ((strlen($subject) < $subject_min_length)
+                || (strlen($subject) > $subject_max_length)) {
+                $this->errors->add('subject_unvalid_length', trans('mail::mail_admin.subject_unvalid_length', [
+                        'SUBJECT_MIN_LENGTH' => $subject_min_length, 
+                        'SUBJECT_MAX_LENGTH' => $subject_max_length
+                    ])
+                );
+                $flag = FALSE;
+            }
         }
         
         if(!$file_size){
