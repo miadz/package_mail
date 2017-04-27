@@ -9,12 +9,12 @@ Features:
 * Reply & forward
 * Send mail with attached file
 * Mail inbox, sent mail (download attached file from sent mail)
-* Validator when send mail (include check internet connection)
+* Validator when send mail (include check internet connection) <br />
 MORE:
 * Send mail with more powerfull (Unisharp) --- Coming soon.
 * Send mail with larger or special data (Google Drive) -- Coming soon.
 
-> You can download package from [pakagist.org](https://packagist.org/packages/source/mail)
+> You can download package from [pakagist.org](https://packagist.org/packages/source/mail) <br />
 > This package will good work on local project. Run on real website more features will not work. (At more version, it'll repair)
 
 [![License](https://poser.pugx.org/bogardo/mailgun/license)](https://packagist.org/packages/source/mail)
