@@ -46,10 +46,13 @@ class MailSendController extends Controller {
         $count_mail = 0;
 
         // Check connect internet
-        if(!$this->pingAddress('8.8.8.8')){
+        /*if(!$this->pingAddress('8.8.8.8')){
+            $request->request->add(['internet_interrupt' => 'Not internet']);
+        }*/ //With cmd will not run in real website
+        if(!$this->internet_checker()){
             $request->request->add(['internet_interrupt' => 'Not internet']);
         }
-
+        
         $input = $request->all();
 
         if (!$this->obj_validator->validate($input)) {
@@ -204,10 +207,17 @@ class MailSendController extends Controller {
      *
      * @return type
      */
-    // public function saveHistory(Request $request){
-    //     $input = $request->all();
-    //     var_dump($input);
-    // }
+    function internet_checker() {
+        $connected = @fsockopen("www.example.com", 80); 
+                                            //website, port  (try 80 or 443)
+        if ($connected){
+            $is_conn = true; //action when connected
+            fclose($connected);
+        }else{
+            $is_conn = false; //action in connection failure
+        }
+        return $is_conn;
+    }
 
     /**
      *
