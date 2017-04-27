@@ -62,7 +62,8 @@ Note: you need to setup your database configuration before running the command.
 ```
 
 ### Step 7: Sign in google mail and go to url: `https://www.google.com/settings/security/lesssecureapps`. <br />
-Then, active it.
+Then, active it. <br />
+If you have problem like `Expected response code 250 but got code "535", with message "535-5.7.8 Username and Password not accepted.` when send mail, you need to go to this link: `https://accounts.google.com/b/0/DisplayUnlockCaptcha`
 
 ### Step 8: Make sure this command was run: 
 ```bash
