@@ -6,7 +6,6 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <div class="col-md-8">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title bariol-thin">
@@ -91,15 +90,7 @@ Admin area: {{ trans('mail::mail_admin.page_edit') }}
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- SEARCH -->
-        <div class='col-md-4'>
-            @include('mail::mail.admin.mail_search')
-        </div>
-        <!-- /END SEARCH -->
-        
+            </div>    
     </div>
 </div>
 @stop

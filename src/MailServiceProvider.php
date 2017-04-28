@@ -101,10 +101,10 @@ class MailServiceProvider extends ServiceProvider {
                     "icon" => '<i class="fa fa-users"></i>'
                 ],
                 //drive
-                trans('mail::mail_admin.drive') => [
+                /*trans('mail::mail_admin.drive') => [
                     'url' => URL::route('admin_mail.drive'),
                     "icon" => '<i class="fa fa-google"></i>'
-                ],
+                ],*/
             ]);
             //
         });
