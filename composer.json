@@ -1,6 +1,6 @@
 {
     "name": "source/mail",
-    "description": "Create overview sample can intergrate other project",
+    "description": "Help admin panel can send email with google mail",
     "authors": [
         {
             "name": "source",
