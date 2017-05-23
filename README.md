@@ -19,6 +19,12 @@ MORE:
 
 [![License](https://poser.pugx.org/bogardo/mailgun/license)](https://packagist.org/packages/source/mail)
 
+# Summary
+
+* [Introduction](README.md)
+* [Installation](install.md)
+* [Usage](usage.md)
+
 ## Installation
 ### Step 1: Install Laravel authentication and ACL admin panel package. `Important`
 
