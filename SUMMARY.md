@@ -2,5 +2,5 @@
 
 * [Introduction](README.md)
 * [Installation](install.md)
-* Usage
+* [Usage](usage.md)
 
