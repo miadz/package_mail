@@ -8,6 +8,5 @@
         }
     ],
     "require": {
-        "jacopo/laravel-authentication-acl": "1.3.*"
     }
 }
